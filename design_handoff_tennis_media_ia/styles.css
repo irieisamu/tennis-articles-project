@@ -1,0 +1,248 @@
+/* テニスメディア ワイヤーフレーム — 共通スタイル */
+
+:root {
+  --wf-ink: #0f0f0f;
+  --wf-ink-2: #3a3a38;
+  --wf-mute: #6b6b68;
+  --wf-mute-2: #9a9a95;
+  --wf-line: #d9d7d2;
+  --wf-line-2: #eeece7;
+  --wf-bg: #ffffff;
+  --wf-bg-2: #f6f5f1;
+  --wf-bg-3: #ebe9e2;
+
+  /* テニスコートグリーン */
+  --wf-court: #2f5d3f;
+  --wf-court-2: #3d7752;
+  --wf-court-soft: #eaf0eb;
+
+  /* クレーコートテラコッタ (注釈・警戒色) */
+  --wf-clay: #c4623a;
+  --wf-clay-soft: #f9ebe2;
+
+  --wf-font-jp: "Noto Sans JP", "游ゴシック体", YuGothic, "游ゴシック", "Hiragino Sans", sans-serif;
+  --wf-font-num: "Inter", -apple-system, system-ui, sans-serif;
+  --wf-font-mono: "SF Mono", "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* frame内リセット */
+.wf-frame, .wf-frame * {
+  box-sizing: border-box;
+  font-family: var(--wf-font-jp);
+  color: var(--wf-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+.wf-frame {
+  font-size: 13px;
+  line-height: 1.6;
+  background: var(--wf-bg);
+  min-height: 100%;
+}
+
+/* テキストユーティリティ */
+.wf-mono { font-family: var(--wf-font-mono); letter-spacing: -0.01em; }
+.wf-num  { font-family: var(--wf-font-num); font-variant-numeric: tabular-nums; }
+.wf-mute { color: var(--wf-mute); }
+.wf-mute-2 { color: var(--wf-mute-2); }
+
+/* 画像プレースホルダ (斜線ハッチ) */
+.wf-img {
+  background:
+    repeating-linear-gradient(
+      135deg,
+      #e8e6df 0 6px,
+      #f2f0ea 6px 12px
+    );
+  border: 1px solid var(--wf-line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--wf-mute);
+  font-family: var(--wf-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  text-align: center;
+  padding: 4px;
+}
+.wf-img-dark {
+  background:
+    repeating-linear-gradient(
+      135deg,
+      #d4d1c8 0 6px,
+      #dedbd2 6px 12px
+    );
+  border: 1px solid #bdbab1;
+  color: #5a5854;
+}
+.wf-img-label {
+  background: rgba(255,255,255,0.85);
+  padding: 3px 6px;
+  border-radius: 2px;
+  border: 1px solid var(--wf-line);
+}
+
+/* 注釈 (アノテーション) */
+.wf-anno {
+  font-family: var(--wf-font-mono);
+  font-size: 10px;
+  line-height: 1.5;
+  color: var(--wf-clay);
+  background: var(--wf-clay-soft);
+  border-left: 2px solid var(--wf-clay);
+  padding: 6px 8px;
+  letter-spacing: -0.01em;
+}
+.wf-anno-inline {
+  display: inline-block;
+  font-family: var(--wf-font-mono);
+  font-size: 9.5px;
+  color: var(--wf-clay);
+  background: var(--wf-clay-soft);
+  padding: 1px 5px;
+  border-radius: 2px;
+  border: 1px solid var(--wf-clay);
+  letter-spacing: 0;
+  vertical-align: middle;
+}
+
+/* 汎用の見出し・区切り */
+.wf-hr { height: 1px; background: var(--wf-line); border: 0; margin: 0; }
+.wf-hr-thick { height: 2px; background: var(--wf-ink); border: 0; margin: 0; }
+
+/* カテゴリバッジ */
+.wf-cat {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 3px 8px;
+  color: #fff;
+  background: var(--wf-court);
+  border-radius: 2px;
+}
+.wf-cat-tour { background: #b32c22; }
+.wf-cat-gear { background: #1e2a4c; }
+.wf-cat-lesson { background: #7a5a1d; }
+.wf-cat-outline {
+  color: var(--wf-court); background: transparent;
+  border: 1px solid var(--wf-court);
+}
+
+/* ボタン/CTA */
+.wf-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  height: 36px; padding: 0 14px;
+  font-size: 12px; font-weight: 700;
+  border-radius: 2px;
+  background: var(--wf-ink); color: #fff;
+  border: 0;
+}
+.wf-btn-out {
+  background: transparent; color: var(--wf-ink);
+  border: 1px solid var(--wf-ink);
+}
+.wf-btn-court { background: var(--wf-court); color: #fff; }
+.wf-btn-clay { background: var(--wf-clay); color: #fff; }
+
+/* リスト行 */
+.wf-row {
+  display: flex; gap: 10px; padding: 12px 0;
+  border-bottom: 1px solid var(--wf-line);
+}
+.wf-row:last-child { border-bottom: 0; }
+
+/* スクロールバー隠す (キャンバス上で綺麗に見せる) */
+.wf-frame::-webkit-scrollbar { display: none; }
+.wf-frame { scrollbar-width: none; }
+
+/* ヘッダ・フッタ */
+.wf-appbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px;
+  background: #fff;
+  border-bottom: 1px solid var(--wf-line);
+}
+.wf-appbar-logo {
+  font-family: var(--wf-font-num); font-weight: 800; font-size: 15px;
+  letter-spacing: -0.02em;
+  color: var(--wf-court);
+}
+.wf-appbar-logo span { color: var(--wf-ink); }
+.wf-appbar-ico {
+  width: 24px; height: 24px;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--wf-ink);
+}
+
+/* グローバルナビ (横スクロール) */
+.wf-gnav {
+  display: flex; gap: 0;
+  overflow-x: auto;
+  background: #fff;
+  border-bottom: 1px solid var(--wf-line);
+  padding: 0 6px;
+}
+.wf-gnav-item {
+  flex: 0 0 auto;
+  padding: 10px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--wf-mute);
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+}
+.wf-gnav-item.on {
+  color: var(--wf-ink);
+  border-bottom-color: var(--wf-court);
+}
+
+/* タブバー (下部) */
+.wf-tabbar {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  background: #fff;
+  border-top: 1px solid var(--wf-line);
+  padding: 6px 0 8px;
+}
+.wf-tabbar-item {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  font-size: 10px; color: var(--wf-mute);
+}
+.wf-tabbar-item.on { color: var(--wf-court); font-weight: 700; }
+.wf-tabbar-item .ico {
+  width: 22px; height: 22px;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+
+/* パンくず */
+.wf-crumb {
+  font-size: 10.5px; color: var(--wf-mute);
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--wf-line-2);
+  background: var(--wf-bg-2);
+}
+
+/* シンプルなアイコン (SVGボックス) */
+.wf-ico { display: inline-block; vertical-align: middle; }
+
+/* Design canvas上のフレームキャプション */
+.wf-caption {
+  font-family: var(--wf-font-mono);
+  font-size: 11px;
+  color: #4a4238;
+  padding: 8px 12px;
+  background: #fff;
+  border: 1px dashed #b5a998;
+  border-radius: 3px;
+  max-width: 340px;
+  line-height: 1.55;
+}
+.wf-caption b {
+  font-family: var(--wf-font-jp);
+  font-size: 12px;
+  color: #2a251f;
+  display: block;
+  margin-bottom: 2px;
+}

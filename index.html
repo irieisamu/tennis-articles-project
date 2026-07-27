@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>テニスメディア 情報設計 · Wireframes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  html, body { margin:0; padding:0; background:#f0eee9; }
+  body { font-family: "Noto Sans JP", -apple-system, system-ui, sans-serif; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<!-- ?v= はブラウザキャッシュ回避用。編集して見た目が変わらない時はこの数字を上げてください -->
+<script type="text/babel" src="design_canvas.jsx?v=3"></script>
+<script type="text/babel" src="frames/Shared.jsx?v=3"></script>
+<script type="text/babel" src="frames/Top.jsx?v=3"></script>
+<script type="text/babel" src="frames/ListNews.jsx?v=3"></script>
+<script type="text/babel" src="frames/ListGear.jsx?v=3"></script>
+<script type="text/babel" src="frames/ListLesson.jsx?v=3"></script>
+<script type="text/babel" src="frames/News.jsx?v=3"></script>
+<script type="text/babel" src="frames/Tour.jsx?v=3"></script>
+<script type="text/babel" src="frames/Gear.jsx?v=3"></script>
+<script type="text/babel" src="frames/Lesson.jsx?v=3"></script>
+<script type="text/babel" src="frames/CMS.jsx?v=3"></script>
+
+<script type="text/babel" data-presets="react">
+// ─── 表紙用のイントロ ───
+function Intro() {
+  return (
+    <div style={{
+      padding: '40px 40px 30px',
+      maxWidth: 1400, margin: '0 auto',
+      fontFamily: '-apple-system, "Noto Sans JP", system-ui, sans-serif',
+    }}>
+      <div style={{fontFamily:'JetBrains Mono, monospace', fontSize:11, color:'#7a6f5e', letterSpacing:'0.1em', marginBottom:6}}>
+        IA WIREFRAME / SMARTPHONE 375px / v1
+      </div>
+      <h1 style={{margin:0, fontSize:32, fontWeight:800, letterSpacing:'-0.02em', color:'#2a251f'}}>
+        テニスメディア 情報設計
+      </h1>
+      <div style={{marginTop:6, fontSize:14, color:'#5a5040', maxWidth:700, lineHeight:1.7}}>
+        tennis365 + ALBA を参考に、より現代的なトンマナで再設計。<br/>
+        TOP / 一覧3種類 / 記事詳細4種類 / CMS の計 9画面 の情報設計を、
+        スマホ 375px のワイヤーフレームで検証しています。
+      </div>
+      <div style={{marginTop:14, display:'flex', gap:16, flexWrap:'wrap', fontSize:11, color:'#5a5040'}}>
+        <div><b style={{color:'#2a251f'}}>Accent</b> ／ テニスコートグリーン <span style={{display:'inline-block', width:10, height:10, background:'#2f5d3f', verticalAlign:'middle', marginLeft:4}}/> · クレーテラコッタ <span style={{display:'inline-block', width:10, height:10, background:'#c4623a', verticalAlign:'middle', marginLeft:4}}/></div>
+        <div><b style={{color:'#2a251f'}}>Type</b> ／ Noto Sans JP + Inter (数字)</div>
+        <div><b style={{color:'#2a251f'}}>Fidelity</b> ／ Wireframe (モノクロ寄り + アクセント2色)</div>
+      </div>
+    </div>
+  );
+}
+
+// ─── 各フレームをキャンバスに配置 ───
+const topFrames = [
+  {
+    id: 'top', label: '01 · TOP',
+    Component: TopFrame,
+    caption: {
+      title: 'TOP',
+      desc: 'メインニュース(ヒーロー) → 速報ティッカー → ツアー速報カード → 最新ニュース → ギア特集 → レッスン特集 → サービス導線 → アクセスランキング → 特集一覧。ニュース最優先。',
+    },
+  },
+];
+const listFrames = [
+  {
+    id: 'list-news', label: '02 · 一覧 / ニュース',
+    Component: ListNewsFrame,
+    caption: {
+      title: '一覧 / ニュース',
+      desc: 'カテゴリタブ + 日付見出し + ピックアップ枠 + 新着リスト。tennis365風の情報密度を維持。',
+    },
+  },
+  {
+    id: 'list-gear', label: '03 · 一覧 / エクウィップメント',
+    Component: ListGearFrame,
+    caption: {
+      title: '一覧 / エクウィップメント',
+      desc: '雑誌的な余白 + サブカテゴリタブ + 特集バナー + 2カラムグリッド + アクセスランキング + ブランドから探す。',
+    },
+  },
+  {
+    id: 'list-lesson', label: '04 · 一覧 / レッスン',
+    Component: ListLessonFrame,
+    caption: {
+      title: '一覧 / レッスン',
+      desc: 'レベル別クイックナビ + 今週のおすすめ + 技術別セクション(フォーム/戦術) + コーチから探す。STEP数バッジで内容濃度を可視化。',
+    },
+  },
+];
+const detailFrames = [
+  {
+    id: 'news', label: '05 · 記事詳細 / テニスニュース',
+    Component: NewsFrame,
+    caption: {
+      title: 'テニスニュース',
+      desc: '関連ギア／関連レッスンを、選手タグから自動レコメンド。CMSでの手動選択は不要にする。',
+    },
+  },
+  {
+    id: 'tour', label: '06 · 記事詳細 / ツアー速報',
+    Component: TourFrame,
+    caption: {
+      title: 'ツアー速報',
+      desc: 'スコアボード(対戦表)を最上部に固定領域として確保。トーナメント表・スタッツ・LIVEバッジをパーツ化。',
+    },
+  },
+  {
+    id: 'gear', label: '07 · 記事詳細 / エクウィップメント',
+    Component: GearFrame,
+    caption: {
+      title: 'エクウィップメント',
+      desc: 'ヒーロー / スペック表 / パフォーマンス / 縦積みカード比較(差分ハイライト) / 固定購入CTAをパーツ化。',
+    },
+  },
+  {
+    id: 'lesson', label: '08 · 記事詳細 / レッスン',
+    Component: LessonFrame,
+    caption: {
+      title: 'レッスン',
+      desc: 'STEP番号 + 連続写真ブロック + コート図SVG。NG/OKの対比、練習メニュー、FAQを構造化。',
+    },
+  },
+];
+// CMSはPC(デスクトップ)幅の画面なので、スマホ375pxのカード列とは分けて単独で表示する。
+const cmsFrames = [
+  {
+    id: 'cms', label: '09 · CMS / 記事作成画面 (PC表示)',
+    Component: CMSFrame, width: 1200,
+    caption: {
+      title: 'CMS · 記事作成',
+      desc: 'ブロックエディタ / スプシ貼付→スペック表 / 比較表 / 特集紐付け / 固定CTA / Googleフォーム / カスタムCSS / タイアップフラグ。左: 本文ブロック編集、右: 基本情報(追従サイドバー)。',
+    },
+  },
+];
+
+// 通常のページスクロールだけで最後まで見られるよう、キャンバス(パン/ズーム)は
+// 使わない。各セクション内は横並び(横スクロールで比較)、セクション同士は縦に並ぶ。
+function Row({ frames }) {
+  return (
+    <div style={{
+      display: 'flex', flexDirection: 'row', flexWrap: 'nowrap', gap: 40,
+      alignItems: 'flex-start', overflowX: 'auto', paddingBottom: 24,
+    }}>
+      {frames.map(f => {
+        const w = f.width || 375;
+        return (
+          <div key={f.id} style={{ flex: '0 0 auto', width: w, maxWidth: '100%' }}>
+            <div style={{ fontSize: 15, fontWeight: 600, color: '#2a251f', marginBottom: 4 }}>{f.label}</div>
+            <div style={{ fontSize: 13, color: 'rgba(60,50,40,0.65)', lineHeight: 1.6, marginBottom: 14, maxWidth: 640 }}>
+              {f.caption.desc}
+            </div>
+            <div style={{
+              width: w, maxWidth: '100%', borderRadius: 2, overflow: 'hidden',
+              boxShadow: '0 1px 3px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.06)',
+            }}>
+              <f.Component />
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function Section({ title, subtitle, frames }) {
+  return (
+    <div style={{ marginBottom: 56 }}>
+      <div style={{ fontSize: 24, fontWeight: 600, color: '#2a251f', letterSpacing: -0.3, marginBottom: 4 }}>{title}</div>
+      {subtitle && <div style={{ fontSize: 14, color: 'rgba(60,50,40,0.6)', marginBottom: 20 }}>{subtitle}</div>}
+      <Row frames={frames} />
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div style={{ padding: '0 40px 100px' }}>
+      <Intro />
+      <Section title="TOP" subtitle="エントリーポイント" frames={topFrames} />
+      <Section title="記事一覧" subtitle="ニュース / エクウィップメント / レッスン" frames={listFrames} />
+      <Section title="記事詳細" subtitle="4カテゴリ (スマホ)" frames={detailFrames} />
+      <Section title="CMS" subtitle="記事作成画面 (PC表示)" frames={cmsFrames} />
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

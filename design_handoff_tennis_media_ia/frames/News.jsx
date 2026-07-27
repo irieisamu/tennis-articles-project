@@ -1,0 +1,144 @@
+// News.jsx — 記事詳細：テニスニュース
+// 参考: https://news.tennis365.net/news/today/202607/158471.html
+// キーポイント: 関連ギア/レッスンの自動レコメンド
+
+function NewsFrame() {
+  return (
+    <Phone>
+      <AppBar variant="detail" />
+      <Crumb items={['TOP', 'ニュース', 'ATPツアー']} />
+
+      {/* ── ヒーロー ── */}
+      <div style={{padding: '14px 14px 0'}}>
+        <div style={{display:'flex', gap:6, alignItems:'center', marginBottom:8}}>
+          <span className="wf-cat">ニュース</span>
+          <span className="wf-mute" style={{fontSize:10.5, display:'flex', alignItems:'center', gap:3}}>
+            {Ico.clock}<span className="wf-num">2026.07.27 09:15</span>
+          </span>
+        </div>
+        <h1 style={{
+          fontSize: 19, fontWeight: 800, lineHeight: 1.45,
+          margin: '0 0 10px', letterSpacing: '-0.01em',
+        }}>
+          アルカラス、全米OP前哨戦シンシナティで2年連続決勝進出「今の自分に自信がある」
+        </h1>
+        <div style={{
+          display:'flex', gap:8, alignItems:'center',
+          padding: '8px 0', borderTop: '1px solid var(--wf-line-2)',
+          borderBottom: '1px solid var(--wf-line-2)',
+          fontSize: 11,
+        }}>
+          <div style={{
+            width:26, height:26, borderRadius:'50%',
+            background:'#e5e2d9', display:'flex', alignItems:'center', justifyContent:'center',
+            fontSize:9, color:'var(--wf-mute)',
+          }}>編</div>
+          <div style={{flex:1}}>
+            <div style={{fontWeight:700}}>編集部 / 田村 直樹</div>
+            <div className="wf-mute" style={{fontSize:10}}>Tennis Press</div>
+          </div>
+          <span className="wf-appbar-ico">{Ico.bookmark}</span>
+          <span className="wf-appbar-ico">{Ico.share}</span>
+        </div>
+      </div>
+
+      {/* ── アイキャッチ ── */}
+      <div style={{padding: '12px 14px 0'}}>
+        <ImgPh w="100%" h={200} label="HERO / アルカラス試合中" />
+        <div className="wf-mute" style={{fontSize:10, marginTop:4}}>
+          © Getty Images / 提供
+        </div>
+      </div>
+
+      {/* ── 本文 ── */}
+      <div style={{padding: '14px 14px 0', fontSize: 13.5, lineHeight: 1.85}}>
+        <p style={{margin:'0 0 12px'}}>
+          カルロス・<u style={{textDecoration:'underline dotted', textDecorationColor:'var(--wf-court)'}}>アルカラス</u>（スペイン）は26日、シンシナティ・オープン（米国／ハードコート）男子シングルス準決勝で第4シードのアレクサンダー・<u style={{textDecoration:'underline dotted', textDecorationColor:'var(--wf-court)'}}>ズベレフ</u>（ドイツ）を7-6(4), 6-4のストレートで下し、2年連続の決勝進出を決めた。
+        </p>
+        <p style={{margin:'0 0 12px'}}>
+          第1セットはブレークの取り合いとなったが、タイブレークで集中力を発揮。第2セットは第7ゲームでズベレフのサービスを破ると、そのまま押し切った。
+        </p>
+        <p style={{margin:'0 0 12px'}}>
+          決勝の相手は、もう一つの準決勝で第1シードのヤニック・シナー（イタリア）を破ったテイラー・フリッツ（米国）に決まる予定。
+        </p>
+      </div>
+
+      {/* ── レコメンド1: 関連ギア (自動) ── */}
+      <div style={{margin:'20px 0 0', padding:'14px', background:'var(--wf-court-soft)', borderTop:'2px solid var(--wf-court)'}}>
+        <div style={{display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:10}}>
+          <div>
+            <div style={{fontSize:10, fontWeight:700, color:'var(--wf-court)', letterSpacing:'0.08em'}}>RECOMMEND</div>
+            <div style={{fontSize:13, fontWeight:700, marginTop:2}}>アルカラスが使用するギア</div>
+          </div>
+          <AnnoTag>自動レコメンド</AnnoTag>
+        </div>
+        <div style={{display:'flex', gap:8}}>
+          <div style={{flex:1, background:'#fff', border:'1px solid var(--wf-line)', padding:8}}>
+            <ImgPh w="100%" h={64} label="ラケット" />
+            <div style={{fontSize:10, marginTop:6, color:'var(--wf-mute)'}}>BABOLAT</div>
+            <div style={{fontSize:11, fontWeight:700, lineHeight:1.3}}>Pure Aero 98</div>
+          </div>
+          <div style={{flex:1, background:'#fff', border:'1px solid var(--wf-line)', padding:8}}>
+            <ImgPh w="100%" h={64} label="シューズ" />
+            <div style={{fontSize:10, marginTop:6, color:'var(--wf-mute)'}}>NIKE</div>
+            <div style={{fontSize:11, fontWeight:700, lineHeight:1.3}}>Zoom Vapor Cage 4</div>
+          </div>
+          <div style={{flex:1, background:'#fff', border:'1px solid var(--wf-line)', padding:8}}>
+            <ImgPh w="100%" h={64} label="ガット" />
+            <div style={{fontSize:10, marginTop:6, color:'var(--wf-mute)'}}>BABOLAT</div>
+            <div style={{fontSize:11, fontWeight:700, lineHeight:1.3}}>RPM Blast</div>
+          </div>
+        </div>
+        <Anno style={{marginTop:10}}>選手タグ「アルカラス」から装備DBを紐付けし、自動で3点を出し分け。CMS側での手動選択は不要。</Anno>
+      </div>
+
+      {/* ── レコメンド2: 関連レッスン (自動) ── */}
+      <div style={{margin:'12px 0 0', padding:'14px', background:'#fbf7f0', borderTop:'2px solid #b8894b'}}>
+        <div style={{display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:10}}>
+          <div>
+            <div style={{fontSize:10, fontWeight:700, color:'#8a6428', letterSpacing:'0.08em'}}>LESSON</div>
+            <div style={{fontSize:13, fontWeight:700, marginTop:2}}>アルカラス直伝、フォアドライブの秘密</div>
+          </div>
+          <AnnoTag>自動レコメンド</AnnoTag>
+        </div>
+        <div style={{display:'flex', gap:10}}>
+          <ImgPh w={100} h={70} label="Lesson" />
+          <div style={{flex:1, fontSize:11.5, lineHeight:1.5}}>
+            <div className="wf-mute" style={{fontSize:10}}>フォーム / フォアハンド</div>
+            <div style={{fontWeight:700, lineHeight:1.4}}>スピンをかけるための手首の使い方</div>
+            <div className="wf-mute" style={{fontSize:10, marginTop:3}}>コーチ 山田 潤</div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── 関連ニュース ── */}
+      <div style={{padding:'20px 14px 14px'}}>
+        <div style={{display:'flex', justifyContent:'space-between', alignItems:'baseline', marginBottom:8}}>
+          <div style={{fontSize:13, fontWeight:800, borderLeft:'3px solid var(--wf-court)', paddingLeft:8}}>関連ニュース</div>
+          <span className="wf-mute" style={{fontSize:10}}>もっと見る ›</span>
+        </div>
+        {[
+          { cat: 'ATP', ttl: 'シナー、シンシナティ準決勝でフリッツに惜敗 全米OPへ調整', d: '07.27' },
+          { cat: 'WTA', ttl: '大坂なおみ、モントリオール3回戦進出「サーブが戻ってきた」', d: '07.26' },
+          { cat: 'ATP', ttl: 'ジョコビッチ、シーズン後半戦へ「体調は万全」記者会見詳報', d: '07.26' },
+        ].map((n, i) => (
+          <div key={i} className="wf-row">
+            <ImgPh w={82} h={56} label="thumb" />
+            <div style={{flex:1, fontSize:12, lineHeight:1.45}}>
+              <div style={{display:'flex', gap:6, alignItems:'center', fontSize:10, color:'var(--wf-mute)', marginBottom:2}}>
+                <span style={{color:'var(--wf-court)', fontWeight:700}}>{n.cat}</span>
+                <span>·</span>
+                <span className="wf-num">{n.d}</span>
+              </div>
+              <div style={{fontWeight:600, lineHeight:1.4}}>{n.ttl}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <TabBar active="ニュース" />
+    </Phone>
+  );
+}
+
+Object.assign(window, { NewsFrame });
