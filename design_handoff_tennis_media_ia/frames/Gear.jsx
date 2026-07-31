@@ -1,4 +1,4 @@
-// Gear.jsx — 記事詳細：エクウィップメント (ギア)
+// Gear.jsx — 記事詳細：テニス用品 (ギア)
 // ヒーロー / スペック表 / 縦積みカード比較(差分ハイライト) / 固定購入CTA
 
 function GearFrame() {
@@ -6,7 +6,7 @@ function GearFrame() {
     <div style={{position:'relative'}}>
       <Phone>
         <AppBar variant="detail" />
-        <Crumb items={['TOP', 'エクウィップメント', 'ラケット']} />
+        <Crumb items={['TOP', 'テニス用品', 'ラケット']} />
 
         {/* ── ヒーロー画像 ── */}
         <div style={{padding:'12px 14px 0'}}>

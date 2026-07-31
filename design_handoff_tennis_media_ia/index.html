@@ -81,10 +81,10 @@ const listFrames = [
     },
   },
   {
-    id: 'list-gear', label: '03 · 一覧 / エクウィップメント',
+    id: 'list-gear', label: '03 · 一覧 / テニス用品',
     Component: ListGearFrame,
     caption: {
-      title: '一覧 / エクウィップメント',
+      title: '一覧 / テニス用品',
       desc: '雑誌的な余白 + サブカテゴリタブ + 特集バナー + 2カラムグリッド + アクセスランキング + ブランドから探す。',
     },
   },
@@ -115,10 +115,10 @@ const detailFrames = [
     },
   },
   {
-    id: 'gear', label: '07 · 記事詳細 / エクウィップメント',
+    id: 'gear', label: '07 · 記事詳細 / テニス用品',
     Component: GearFrame,
     caption: {
-      title: 'エクウィップメント',
+      title: 'テニス用品',
       desc: 'ヒーロー / スペック表 / パフォーマンス / 縦積みカード比較(差分ハイライト) / 固定購入CTAをパーツ化。',
     },
   },
@@ -152,7 +152,7 @@ function App() {
             </DCArtboard>
           ))}
         </DCSection>
-        <DCSection id="list" title="記事一覧" subtitle="ニュース / エクウィップメント / レッスン">
+        <DCSection id="list" title="記事一覧" subtitle="ニュース / テニス用品 / レッスン">
           {listFrames.map(f => (
             <DCArtboard key={f.id} id={f.id} label={f.label} width={375} height={820}>
               <f.Component />

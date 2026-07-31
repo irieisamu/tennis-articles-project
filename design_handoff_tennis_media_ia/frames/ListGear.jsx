@@ -1,4 +1,4 @@
-// ListGear.jsx — 記事一覧：エクウィップメント
+// ListGear.jsx — 記事一覧：テニス用品
 // 新着 / ラケット / シューズ / ガット / グリップ / ウェア / アクセスランキング
 
 function ListGearFrame() {
@@ -12,7 +12,7 @@ function ListGearFrame() {
           GEAR INDEX / EQUIPMENT
         </div>
         <h1 style={{margin:0, fontSize:26, fontWeight:800, letterSpacing:'-0.02em', lineHeight:1.15}}>
-          エクウィップメント
+          テニス用品
         </h1>
         <div style={{fontSize:12, color:'var(--wf-mute-2)', marginTop:6, fontFamily:'serif', fontStyle:'italic'}}>
           — Rackets, Strings, Shoes and more.

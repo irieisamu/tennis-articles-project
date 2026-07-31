@@ -325,7 +325,7 @@ function CMSFrame() {
               }}>Pure Aero 98 (2026) 徹底レビュー<span style={{opacity:0.4}}>|</span></div>
             </div>
 
-            <Field label="カテゴリ" value="エクウィップメント / ラケット" right={<span className="wf-mute" style={{fontSize:9, marginLeft:'auto'}}>{Ico.chevD}</span>}/>
+            <Field label="カテゴリ" value="テニス用品 / ラケット" right={<span className="wf-mute" style={{fontSize:9, marginLeft:'auto'}}>{Ico.chevD}</span>}/>
             <Field label="公開日時" value="2026.07.20 09:00" />
 
             {/* 特集自動紐付け */}

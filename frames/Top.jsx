@@ -131,9 +131,34 @@ function TopFrame() {
         </div>
       </div>
 
-      {/* ── 5. エクウィップメント特集 (記事リスト = レッスンと同じ形式) ── */}
+      {/* ── 9. 特集一覧 ── */}
+      <div style={{padding:'20px 0 14px'}}>
+        <SecHead title="特集" cat="FEATURES" />
+        <div style={{padding:'0 0 0 14px', display:'flex', gap:8, overflowX:'auto'}}>
+          {[
+            { ttl: '2026年ラケット新製品', n: 12 },
+            { ttl: 'アルカラス使用モデル', n: 8 },
+            { ttl: '全米オープン2026 特集', n: 24 },
+          ].map((f, i) => (
+            <div key={i} style={{
+              flex:'0 0 200px', position:'relative',
+              marginRight: i === 2 ? 14 : 0,
+              background:'var(--wf-ink)', color:'#fff', overflow:'hidden',
+            }}>
+              <ImgPh w="100%" h={100} label="feature" dark={true} />
+              <div style={{padding:'8px 10px 10px'}}>
+                <div style={{fontSize:9, color:'#c5c3bc', letterSpacing:'0.08em', fontWeight:700}}>FEATURE</div>
+                <div style={{fontSize:12, fontWeight:700, marginTop:3, color:'#fff', lineHeight:1.3}}>{f.ttl}</div>
+                <div className="wf-num" style={{fontSize:10, color:'#c5c3bc', marginTop:4}}>{f.n} 記事</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── 5. テニス用品特集 (記事リスト = レッスンと同じ形式) ── */}
       <div style={{padding:'20px 0 0', background:'var(--wf-bg-2)', margin:'20px 0 0', paddingTop:18, paddingBottom:18}}>
-        <SecHead title="エクウィップメント" cat="GEAR" />
+        <SecHead title="テニス用品" cat="GEAR" />
         {/* サブカテゴリタブ */}
         <div style={{padding:'0 14px 10px', display:'flex', gap:6, overflowX:'auto'}}>
           {['ラケット', 'シューズ', 'ガット', 'グリップ', 'ウェア'].map((t, i) => (
@@ -255,31 +280,6 @@ function TopFrame() {
                 letterSpacing:'-0.03em', textAlign:'center', lineHeight:1,
               }}>{i + 1}</div>
               <div style={{fontSize:12, fontWeight:600, lineHeight:1.4}}>{t}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* ── 9. 特集一覧 ── */}
-      <div style={{padding:'20px 0 14px'}}>
-        <SecHead title="特集" cat="FEATURES" />
-        <div style={{padding:'0 0 0 14px', display:'flex', gap:8, overflowX:'auto'}}>
-          {[
-            { ttl: '2026年ラケット新製品', n: 12 },
-            { ttl: 'アルカラス使用モデル', n: 8 },
-            { ttl: '全米オープン2026 特集', n: 24 },
-          ].map((f, i) => (
-            <div key={i} style={{
-              flex:'0 0 200px', position:'relative',
-              marginRight: i === 2 ? 14 : 0,
-              background:'var(--wf-ink)', color:'#fff', overflow:'hidden',
-            }}>
-              <ImgPh w="100%" h={100} label="feature" dark={true} />
-              <div style={{padding:'8px 10px 10px'}}>
-                <div style={{fontSize:9, color:'#c5c3bc', letterSpacing:'0.08em', fontWeight:700}}>FEATURE</div>
-                <div style={{fontSize:12, fontWeight:700, marginTop:3, color:'#fff', lineHeight:1.3}}>{f.ttl}</div>
-                <div className="wf-num" style={{fontSize:10, color:'#c5c3bc', marginTop:4}}>{f.n} 記事</div>
-              </div>
             </div>
           ))}
         </div>

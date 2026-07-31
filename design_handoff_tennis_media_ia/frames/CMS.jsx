@@ -107,7 +107,7 @@ function CMSFrame() {
           </div>
 
           <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:8, marginBottom:8}}>
-            <Field label="カテゴリ" value="エクウィップメント / ラケット" right={<span className="wf-mute" style={{fontSize:9, marginLeft:'auto'}}>{Ico.chevD}</span>}/>
+            <Field label="カテゴリ" value="テニス用品 / ラケット" right={<span className="wf-mute" style={{fontSize:9, marginLeft:'auto'}}>{Ico.chevD}</span>}/>
             <Field label="公開日時" value="2026.07.20 09:00" />
           </div>
 

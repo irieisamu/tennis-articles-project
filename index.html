@@ -82,10 +82,10 @@ const listFrames = [
     },
   },
   {
-    id: 'list-gear', label: '03 · 一覧 / エクウィップメント',
+    id: 'list-gear', label: '03 · 一覧 / テニス用品',
     Component: ListGearFrame,
     caption: {
-      title: '一覧 / エクウィップメント',
+      title: '一覧 / テニス用品',
       desc: '雑誌的な余白 + サブカテゴリタブ + 特集バナー + 2カラムグリッド + アクセスランキング + ブランドから探す。',
     },
   },
@@ -116,10 +116,10 @@ const detailFrames = [
     },
   },
   {
-    id: 'gear', label: '07 · 記事詳細 / エクウィップメント',
+    id: 'gear', label: '07 · 記事詳細 / テニス用品',
     Component: GearFrame,
     caption: {
-      title: 'エクウィップメント',
+      title: 'テニス用品',
       desc: 'ヒーロー / スペック表 / パフォーマンス / 縦積みカード比較(差分ハイライト) / 固定購入CTAをパーツ化。',
     },
   },
@@ -188,7 +188,7 @@ function App() {
     <div style={{ padding: '0 40px 100px' }}>
       <Intro />
       <Section title="TOP" subtitle="エントリーポイント" frames={topFrames} />
-      <Section title="記事一覧" subtitle="ニュース / エクウィップメント / レッスン" frames={listFrames} />
+      <Section title="記事一覧" subtitle="ニュース / テニス用品 / レッスン" frames={listFrames} />
       <Section title="記事詳細" subtitle="4カテゴリ (スマホ)" frames={detailFrames} />
       <Section title="CMS" subtitle="記事作成画面 (PC表示)" frames={cmsFrames} />
     </div>

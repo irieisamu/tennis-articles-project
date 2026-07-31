@@ -133,7 +133,7 @@ function TopFrame() {
 
       {/* ── 5. ギア特集 (横スクロール カード) ── */}
       <div style={{padding:'20px 0 0', background:'var(--wf-bg-2)', margin:'20px 0 0', paddingTop:18, paddingBottom:18}}>
-        <SecHead title="エクウィップメント" cat="GEAR" />
+        <SecHead title="テニス用品" cat="GEAR" />
         {/* サブカテゴリタブ */}
         <div style={{padding:'0 14px 10px', display:'flex', gap:6, overflowX:'auto'}}>
           {['ラケット', 'シューズ', 'ガット', 'グリップ', 'ウェア'].map((t, i) => (
