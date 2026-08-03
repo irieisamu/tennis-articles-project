@@ -20,17 +20,18 @@
 <div id="root"></div>
 
 <!-- ?v= はブラウザキャッシュ回避用。編集して見た目が変わらない時はこの数字を上げてください -->
-<script type="text/babel" src="design_canvas.jsx?v=3"></script>
-<script type="text/babel" src="frames/Shared.jsx?v=3"></script>
-<script type="text/babel" src="frames/Top.jsx?v=3"></script>
-<script type="text/babel" src="frames/ListNews.jsx?v=3"></script>
-<script type="text/babel" src="frames/ListGear.jsx?v=3"></script>
-<script type="text/babel" src="frames/ListLesson.jsx?v=3"></script>
-<script type="text/babel" src="frames/News.jsx?v=3"></script>
-<script type="text/babel" src="frames/Tour.jsx?v=3"></script>
-<script type="text/babel" src="frames/Gear.jsx?v=3"></script>
-<script type="text/babel" src="frames/Lesson.jsx?v=3"></script>
-<script type="text/babel" src="frames/CMS.jsx?v=3"></script>
+<script type="text/babel" src="design_canvas.jsx?v=8"></script>
+<script type="text/babel" src="frames/Shared.jsx?v=8"></script>
+<script type="text/babel" src="frames/Top.jsx?v=8"></script>
+<script type="text/babel" src="frames/ListNews.jsx?v=8"></script>
+<script type="text/babel" src="frames/ListGear.jsx?v=8"></script>
+<script type="text/babel" src="frames/ListLesson.jsx?v=8"></script>
+<script type="text/babel" src="frames/News.jsx?v=8"></script>
+<script type="text/babel" src="frames/Tour.jsx?v=8"></script>
+<script type="text/babel" src="frames/Gear.jsx?v=8"></script>
+<script type="text/babel" src="frames/Lesson.jsx?v=8"></script>
+<script type="text/babel" src="frames/LP.jsx?v=8"></script>
+<script type="text/babel" src="frames/CMS.jsx?v=8"></script>
 
 <script type="text/babel" data-presets="react">
 // ─── 表紙用のイントロ ───
@@ -68,7 +69,7 @@ const topFrames = [
     Component: TopFrame,
     caption: {
       title: 'TOP',
-      desc: 'メインニュース(ヒーロー) → 速報ティッカー → ツアー速報カード → 最新ニュース → ギア特集 → レッスン特集 → サービス導線 → アクセスランキング → 特集一覧。ニュース最優先。',
+      desc: 'メインニュース3本連続(ヒーロー) → ニュース一覧への導線 → 速報ティッカー → ツアー速報カード → ギア特集 → レッスン特集 → サービス導線 → アクセスランキング → 特集一覧。ニュース最優先。',
     },
   },
 ];
@@ -94,7 +95,7 @@ const listFrames = [
     Component: ListLessonFrame,
     caption: {
       title: '一覧 / レッスン',
-      desc: 'レベル別クイックナビ + 今週のおすすめ + 技術別セクション(フォーム/戦術) + コーチから探す。STEP数バッジで内容濃度を可視化。',
+      desc: 'ショット別タブ(新着/サーブ/フォアハンド/バックハンド/ボレー/スマッシュ/フットワーク) + レベル別クイックナビ + 今週のおすすめ + ショット別6セクション + 新着Shorts(YouTube) + コーチ紹介(写真・経歴・直近3レッスン+もっと見るを縦積み)。STEP数バッジで内容濃度を可視化。',
     },
   },
 ];
@@ -129,6 +130,14 @@ const detailFrames = [
     caption: {
       title: 'レッスン',
       desc: 'STEP番号 + 連続写真ブロック + コート図SVG。NG/OKの対比、練習メニュー、FAQを構造化。',
+    },
+  },
+  {
+    id: 'lp', label: '08b · 特集LP / 選手サポートページ',
+    Component: LPFrame,
+    caption: {
+      title: '特集LP',
+      desc: '参考: news.tennis365.net の選手サポートページ。TOPの「特集」導線から遷移する単発の没入型LP(スマホ専用)。GNav/TabBarを外し、ダーク基調+クレーアクセントの専用トンマナで、ヒーロー→スタッツ→ニュース→経歴年表→スポンサーストーリー→ロゴ一覧→動画→クロージングCTAを構成。',
     },
   },
 ];

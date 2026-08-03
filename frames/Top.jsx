@@ -1,5 +1,5 @@
 // Top.jsx — TOPページ
-// メインニュース + ツアー速報 + 最新ニュース + ギア特集 + レッスン特集
+// メインニュース(3本) + ニュース一覧導線 + ツアー速報 + ギア特集 + レッスン特集
 // + サービス導線 + アクセスランキング + 特集一覧
 
 // セクション見出しの共通
@@ -27,41 +27,61 @@ function TopFrame() {
       <AppBar variant="top" />
       <GNav active="TOP" />
 
-      {/* ── 1. メインニュース (フルブリード ヒーロー) ── */}
-      <div style={{position:'relative'}}>
-        <ImgPh w="100%" h={230} label="MAIN NEWS HERO / アルカラス試合中" />
-        <div style={{
-          position:'absolute', left:0, right:0, bottom:0,
-          padding:'40px 14px 14px',
-          background:'linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0))',
-          color:'#fff',
-        }}>
-          <div style={{display:'flex', gap:6, alignItems:'center', marginBottom:6}}>
-            <span className="wf-cat wf-cat-tour" style={{display:'inline-flex', alignItems:'center', gap:4}}>
-              <span style={{width:5, height:5, borderRadius:'50%', background:'#fff'}}/>
-              LIVE 速報
-            </span>
-            <span className="wf-num" style={{fontSize:10, opacity:0.85}}>04:32 更新</span>
+      {/* ── 1. メインニュース (3本連続 · フルブリード) ── */}
+      <div>
+        {[
+          {
+            cat: 'LIVE 速報', tour: true, time: '04:32 更新', h: 210,
+            ttl: 'アルカラス、シンシナティ準決勝でズベレフを下し2年連続決勝進出',
+            label: 'MAIN NEWS 1 / アルカラス試合中',
+          },
+          {
+            cat: 'WTA', tour: false, time: '07.26 22:40', h: 210,
+            ttl: '大坂なおみ、モントリオール3回戦進出「サーブが戻ってきた」',
+            label: 'MAIN NEWS 2 / 大坂なおみ試合中',
+          },
+          {
+            cat: 'ATP', tour: false, time: '07.26 15:00', h: 210,
+            ttl: 'メドベージェフ、右手首負傷で全米OP出場に黄信号',
+            label: 'MAIN NEWS 3 / メドベージェフ会見',
+          },
+        ].map((a, i) => (
+          <div key={i} style={{position:'relative', borderTop: i > 0 ? '1px solid #fff' : 0}}>
+            <ImgPh w="100%" h={a.h} label={a.label} />
+            <div style={{
+              position:'absolute', left:0, right:0, bottom:0,
+              padding: i === 0 ? '40px 14px 14px' : '28px 14px 12px',
+              background:'linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0))',
+              color:'#fff',
+            }}>
+              <div style={{display:'flex', gap:6, alignItems:'center', marginBottom:6}}>
+                {a.tour ? (
+                  <span className="wf-cat wf-cat-tour" style={{display:'inline-flex', alignItems:'center', gap:4}}>
+                    <span style={{width:5, height:5, borderRadius:'50%', background:'#fff'}}/>
+                    {a.cat}
+                  </span>
+                ) : (
+                  <span className="wf-cat" style={{background:'rgba(255,255,255,0.2)'}}>{a.cat}</span>
+                )}
+                <span className="wf-num" style={{fontSize:10, opacity:0.85}}>{a.time}</span>
+              </div>
+              <h1 style={{
+                margin:0, color:'#fff', fontSize: i === 0 ? 17 : 14, fontWeight:800, lineHeight:1.4,
+                letterSpacing:'-0.01em', textShadow:'0 2px 8px rgba(0,0,0,0.4)',
+              }}>
+                {a.ttl}
+              </h1>
+            </div>
           </div>
-          <h1 style={{
-            margin:0, color:'#fff', fontSize:17, fontWeight:800, lineHeight:1.4,
-            letterSpacing:'-0.01em', textShadow:'0 2px 8px rgba(0,0,0,0.4)',
-          }}>
-            アルカラス、シンシナティ準決勝でズベレフを下し2年連続決勝進出
-          </h1>
+        ))}
+        <div style={{padding:'12px 14px', background:'#fff'}}>
+          <div className="wf-btn wf-btn-out" style={{width:'100%'}}>
+            ニュース一覧を見る <span style={{fontSize:10}}>›</span>
+          </div>
         </div>
       </div>
 
-      {/* ── 2. 速報帯 (横スクロール) ── */}
-      <div style={{background:'var(--wf-ink)', color:'#fff', padding:'6px 0', display:'flex', alignItems:'center', gap:8, overflow:'hidden'}}>
-        <div style={{
-          padding:'2px 8px', background:'#b32c22', fontSize:9, fontWeight:800,
-          letterSpacing:'0.08em', flex:'0 0 auto', marginLeft:10,
-        }}>BREAKING</div>
-        <div style={{fontSize:11, whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis'}}>
-          シナー、シンシナティ準決勝でフリッツに惜敗 · 大坂なおみ、モントリオール3回戦へ · ...
-        </div>
-      </div>
+      
 
       {/* ── 3. ツアー速報 (スコアカード群) ── */}
       <div style={{padding:'18px 0 0'}}>
@@ -106,31 +126,6 @@ function TopFrame() {
         </div>
       </div>
 
-      {/* ── 4. 最新ニュース一覧 ── */}
-      <div style={{padding:'20px 0 0'}}>
-        <SecHead title="最新ニュース" />
-        <div style={{padding:'0 14px'}}>
-          {[
-            { cat: 'ATP', ttl: 'ジョコビッチ、シーズン後半戦へ「体調は万全」記者会見詳報', d: '07.27 08:00' },
-            { cat: 'WTA', ttl: '大坂なおみ、モントリオール3回戦進出「サーブが戻ってきた」', d: '07.26 22:40' },
-            { cat: '日本', ttl: '西岡良仁、シンシナティ予選突破 本戦初戦は第9シードと', d: '07.26 18:15' },
-            { cat: 'ATP', ttl: 'メドベージェフ、右手首負傷で全米OP出場に黄信号', d: '07.26 15:00' },
-          ].map((n, i) => (
-            <div key={i} className="wf-row">
-              <ImgPh w={82} h={56} label="thumb" />
-              <div style={{flex:1, fontSize:12, lineHeight:1.45}}>
-                <div style={{display:'flex', gap:6, alignItems:'center', fontSize:10, color:'var(--wf-mute)', marginBottom:2}}>
-                  <span style={{color:'var(--wf-court)', fontWeight:700}}>{n.cat}</span>
-                  <span>·</span>
-                  <span className="wf-num">{n.d}</span>
-                </div>
-                <div style={{fontWeight:600, lineHeight:1.4}}>{n.ttl}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
       {/* ── 9. 特集一覧 ── */}
       <div style={{padding:'20px 0 14px'}}>
         <SecHead title="特集" cat="FEATURES" />
@@ -158,7 +153,7 @@ function TopFrame() {
 
       {/* ── 5. テニス用品特集 (記事リスト = レッスンと同じ形式) ── */}
       <div style={{padding:'20px 0 0', background:'var(--wf-bg-2)', margin:'20px 0 0', paddingTop:18, paddingBottom:18}}>
-        <SecHead title="テニス用品" cat="GEAR" />
+        <SecHead title="テニス用品" cat="GEAR" more={false} />
         {/* サブカテゴリタブ */}
         <div style={{padding:'0 14px 10px', display:'flex', gap:6, overflowX:'auto'}}>
           {['ラケット', 'シューズ', 'ガット', 'グリップ', 'ウェア'].map((t, i) => (
@@ -188,25 +183,30 @@ function TopFrame() {
             </div>
           ))}
         </div>
+        <div style={{padding:'4px 14px 0'}}>
+          <div className="wf-btn wf-btn-out" style={{width:'100%'}}>
+            もっと見る <span style={{fontSize:10}}>›</span>
+          </div>
+        </div>
       </div>
 
       {/* ── 6. レッスン特集 ── */}
       <div style={{padding:'20px 0 0'}}>
-        <SecHead title="レッスン" cat="LESSON" />
+        <SecHead title="レッスン" cat="LESSON" more={false} />
         <div style={{padding:'0 14px 10px', display:'flex', gap:6, overflowX:'auto'}}>
-          {['初心者', 'フォーム', 'サーブ', '戦術', 'フィジカル'].map((t, i) => (
+          {['サーブ', 'フォアハンド', 'バックハンド', 'ボレー', 'スマッシュ', 'フットワーク'].map((t, i) => (
             <div key={t} style={{
               flex:'0 0 auto', padding:'4px 10px', fontSize:10.5, fontWeight:700,
-              background: i === 1 ? 'var(--wf-ink)' : '#fff',
-              color: i === 1 ? '#fff' : 'var(--wf-ink)',
+              background: i === 0 ? 'var(--wf-ink)' : '#fff',
+              color: i === 0 ? '#fff' : 'var(--wf-ink)',
               border:'1px solid var(--wf-ink)',
             }}>{t}</div>
           ))}
         </div>
         <div style={{padding:'0 14px'}}>
           {[
-            { cat: 'フォーム', ttl: 'スピンをかけるフォアハンド · 手首の使い方 4ステップ', coach: 'コーチ 山田 潤', dur: '5分' },
-            { cat: '戦術', ttl: 'シングルスで勝つための「ドロップショット」の使いどころ', coach: 'コーチ 木村 慎', dur: '7分' },
+            { cat: 'フォアハンド', ttl: 'スピンをかけるフォアハンド · 手首の使い方 4ステップ', coach: 'コーチ 山田 潤', dur: '5分' },
+            { cat: 'バックハンド', ttl: '両手バックハンドで安定させる · 体の使い方の基本', coach: 'コーチ 木村 慎', dur: '7分' },
           ].map((l, i) => (
             <div key={i} className="wf-row">
               <div style={{position:'relative'}}>
@@ -227,6 +227,11 @@ function TopFrame() {
               </div>
             </div>
           ))}
+        </div>
+        <div style={{padding:'4px 14px 0'}}>
+          <div className="wf-btn wf-btn-out" style={{width:'100%'}}>
+            もっと見る <span style={{fontSize:10}}>›</span>
+          </div>
         </div>
       </div>
 
@@ -261,7 +266,7 @@ function TopFrame() {
 
       {/* ── 8. アクセスランキング ── */}
       <div style={{padding:'20px 0 0'}}>
-        <SecHead title="アクセスランキング" cat="WEEKLY" />
+        <SecHead title="アクセスランキング" cat="WEEKLY" more={false} />
         <div style={{padding:'0 14px'}}>
           {[
             'アルカラス、全米OP前哨戦シンシナティで決勝進出',
@@ -282,6 +287,11 @@ function TopFrame() {
               <div style={{fontSize:12, fontWeight:600, lineHeight:1.4}}>{t}</div>
             </div>
           ))}
+        </div>
+        <div style={{padding:'10px 14px 0'}}>
+          <div className="wf-btn wf-btn-out" style={{width:'100%'}}>
+            もっと見る <span style={{fontSize:10}}>›</span>
+          </div>
         </div>
       </div>
 
