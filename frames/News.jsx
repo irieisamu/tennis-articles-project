@@ -209,8 +209,6 @@ function NewsFrame() {
           </div>
         ))}
       </div>
-
-      <TabBar active="ニュース" />
     </Phone>
   );
 }

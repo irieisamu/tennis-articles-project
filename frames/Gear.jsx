@@ -207,13 +207,12 @@ function GearFrame() {
           </div>
         </div>
 
-        <div style={{height: 90}} /> {/* CTA分の余白 */}
-        <TabBar active="ホーム" />
+        <div style={{height: 76}} /> {/* CTA分の余白 */}
       </Phone>
 
       {/* ── 固定購入CTA (画面下部固定) ── */}
       <div style={{
-        position:'absolute', left:8, right:8, bottom: 68,
+        position:'absolute', left:8, right:8, bottom: 8,
         background:'var(--wf-ink)', color:'#fff',
         border:'1px solid var(--wf-ink)',
         padding:'8px 10px',
@@ -230,7 +229,7 @@ function GearFrame() {
         }}>{Ico.cart}<span>今すぐEC で購入</span></button>
       </div>
       <div style={{
-        position:'absolute', left:20, bottom: 132,
+        position:'absolute', left:20, bottom: 72,
       }}>
         <AnnoTag>スクロール追従・CMSでON/OFF</AnnoTag>
       </div>

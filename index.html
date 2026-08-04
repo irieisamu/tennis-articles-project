@@ -20,18 +20,19 @@
 <div id="root"></div>
 
 <!-- ?v= はブラウザキャッシュ回避用。編集して見た目が変わらない時はこの数字を上げてください -->
-<script type="text/babel" src="design_canvas.jsx?v=8"></script>
-<script type="text/babel" src="frames/Shared.jsx?v=8"></script>
-<script type="text/babel" src="frames/Top.jsx?v=8"></script>
-<script type="text/babel" src="frames/ListNews.jsx?v=8"></script>
-<script type="text/babel" src="frames/ListGear.jsx?v=8"></script>
-<script type="text/babel" src="frames/ListLesson.jsx?v=8"></script>
-<script type="text/babel" src="frames/News.jsx?v=8"></script>
-<script type="text/babel" src="frames/Tour.jsx?v=8"></script>
-<script type="text/babel" src="frames/Gear.jsx?v=8"></script>
-<script type="text/babel" src="frames/Lesson.jsx?v=8"></script>
-<script type="text/babel" src="frames/LP.jsx?v=8"></script>
-<script type="text/babel" src="frames/CMS.jsx?v=8"></script>
+<script type="text/babel" src="design_canvas.jsx?v=12"></script>
+<script type="text/babel" src="frames/Shared.jsx?v=12"></script>
+<script type="text/babel" src="frames/Top.jsx?v=12"></script>
+<script type="text/babel" src="frames/ListNews.jsx?v=12"></script>
+<script type="text/babel" src="frames/ListTour.jsx?v=12"></script>
+<script type="text/babel" src="frames/ListGear.jsx?v=12"></script>
+<script type="text/babel" src="frames/ListLesson.jsx?v=12"></script>
+<script type="text/babel" src="frames/News.jsx?v=12"></script>
+<script type="text/babel" src="frames/Tour.jsx?v=12"></script>
+<script type="text/babel" src="frames/Gear.jsx?v=12"></script>
+<script type="text/babel" src="frames/Lesson.jsx?v=12"></script>
+<script type="text/babel" src="frames/LP.jsx?v=12"></script>
+<script type="text/babel" src="frames/CMS.jsx?v=12"></script>
 
 <script type="text/babel" data-presets="react">
 // ─── 表紙用のイントロ ───
@@ -50,7 +51,7 @@ function Intro() {
       </h1>
       <div style={{marginTop:6, fontSize:14, color:'#5a5040', maxWidth:700, lineHeight:1.7}}>
         tennis365 + ALBA を参考に、より現代的なトンマナで再設計。<br/>
-        TOP / 一覧3種類 / 記事詳細4種類 / CMS の計 9画面 の情報設計を、
+        TOP / 一覧4種類 / 記事詳細4種類 / CMS の計 10画面 の情報設計を、
         スマホ 375px のワイヤーフレームで検証しています。
       </div>
       <div style={{marginTop:14, display:'flex', gap:16, flexWrap:'wrap', fontSize:11, color:'#5a5040'}}>
@@ -79,11 +80,19 @@ const listFrames = [
     Component: ListNewsFrame,
     caption: {
       title: '一覧 / ニュース',
-      desc: 'カテゴリタブ + 日付見出し + ピックアップ枠 + 新着リスト。tennis365風の情報密度を維持。',
+      desc: '日付見出し + ピックアップ枠 + 新着リスト。tennis365風の情報密度を維持。',
     },
   },
   {
-    id: 'list-gear', label: '03 · 一覧 / テニス用品',
+    id: 'list-tour', label: '03 · 一覧 / ツアー',
+    Component: ListTourFrame,
+    caption: {
+      title: '一覧 / ツアー',
+      desc: '種目別タブ(グランドスラム/ATP/チャレンジャー/WTA/125/国別・団体戦/ITF男子/ITF女子/学生/ジュニア/その他) + 開催中の大会(開催期間・大会の種類・大会名) + 新着ツアーニュース。',
+    },
+  },
+  {
+    id: 'list-gear', label: '04 · 一覧 / テニス用品',
     Component: ListGearFrame,
     caption: {
       title: '一覧 / テニス用品',
@@ -91,7 +100,7 @@ const listFrames = [
     },
   },
   {
-    id: 'list-lesson', label: '04 · 一覧 / レッスン',
+    id: 'list-lesson', label: '05 · 一覧 / レッスン',
     Component: ListLessonFrame,
     caption: {
       title: '一覧 / レッスン',
@@ -101,7 +110,7 @@ const listFrames = [
 ];
 const detailFrames = [
   {
-    id: 'news', label: '05 · 記事詳細 / テニスニュース',
+    id: 'news', label: '06 · 記事詳細 / テニスニュース',
     Component: NewsFrame,
     caption: {
       title: 'テニスニュース',
@@ -109,7 +118,7 @@ const detailFrames = [
     },
   },
   {
-    id: 'tour', label: '06 · 記事詳細 / ツアー速報',
+    id: 'tour', label: '07 · 記事詳細 / ツアー速報',
     Component: TourFrame,
     caption: {
       title: 'ツアー速報',
@@ -117,7 +126,7 @@ const detailFrames = [
     },
   },
   {
-    id: 'gear', label: '07 · 記事詳細 / テニス用品',
+    id: 'gear', label: '08 · 記事詳細 / テニス用品',
     Component: GearFrame,
     caption: {
       title: 'テニス用品',
@@ -125,7 +134,7 @@ const detailFrames = [
     },
   },
   {
-    id: 'lesson', label: '08 · 記事詳細 / レッスン',
+    id: 'lesson', label: '09 · 記事詳細 / レッスン',
     Component: LessonFrame,
     caption: {
       title: 'レッスン',
@@ -133,7 +142,7 @@ const detailFrames = [
     },
   },
   {
-    id: 'lp', label: '08b · 特集LP / 選手サポートページ',
+    id: 'lp', label: '09b · 特集LP / 選手サポートページ',
     Component: LPFrame,
     caption: {
       title: '特集LP',
@@ -144,7 +153,7 @@ const detailFrames = [
 // CMSはPC(デスクトップ)幅の画面なので、スマホ375pxのカード列とは分けて単独で表示する。
 const cmsFrames = [
   {
-    id: 'cms', label: '09 · CMS / 記事作成画面 (PC表示)',
+    id: 'cms', label: '10 · CMS / 記事作成画面 (PC表示)',
     Component: CMSFrame, width: 1200,
     caption: {
       title: 'CMS · 記事作成',
@@ -197,7 +206,7 @@ function App() {
     <div style={{ padding: '0 40px 100px' }}>
       <Intro />
       <Section title="TOP" subtitle="エントリーポイント" frames={topFrames} />
-      <Section title="記事一覧" subtitle="ニュース / テニス用品 / レッスン" frames={listFrames} />
+      <Section title="記事一覧" subtitle="ニュース / ツアー / テニス用品 / レッスン" frames={listFrames} />
       <Section title="記事詳細" subtitle="4カテゴリ (スマホ)" frames={detailFrames} />
       <Section title="CMS" subtitle="記事作成画面 (PC表示)" frames={cmsFrames} />
     </div>

@@ -324,8 +324,6 @@ function ListLessonFrame() {
           </div>
         ))}
       </div>
-
-      <TabBar active="ホーム" />
     </Phone>
   );
 }

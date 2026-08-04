@@ -11,17 +11,10 @@ function ListNewsFrame() {
         <div className="wf-mono" style={{fontSize:9.5, color:'var(--wf-mute)', letterSpacing:'0.08em', marginBottom:4}}>
           NEWS INDEX
         </div>
-        <h1 style={{margin:0, fontSize:22, fontWeight:800, letterSpacing:'-0.01em'}}>ニュース</h1>
+        <h1 style={{margin:0, fontSize:22, fontWeight:800, letterSpacing:'-0.01em'}}>新着ニュース</h1>
         <div style={{fontSize:11, color:'var(--wf-mute)', marginTop:4}}>
           最新のテニスニュースを新着順にお届け
         </div>
-      </div>
-
-      {/* カテゴリタブ (横スクロール) */}
-      <div className="wf-gnav" style={{padding:'0 6px'}}>
-        {['すべて', 'ATP', 'WTA', '日本', 'グランドスラム', 'デビス杯', 'コラム'].map((c, i) => (
-          <div key={c} className={'wf-gnav-item' + (i === 0 ? ' on' : '')}>{c}</div>
-        ))}
       </div>
 
       {/* ツールバー: 検索 + 並び替え */}
@@ -137,8 +130,6 @@ function ListNewsFrame() {
       <div style={{padding:'16px 14px 20px', textAlign:'center'}}>
         <button className="wf-btn wf-btn-out" style={{width:'100%'}}>もっと読む</button>
       </div>
-
-      <TabBar active="ニュース" />
     </Phone>
   );
 }

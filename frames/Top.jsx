@@ -294,8 +294,6 @@ function TopFrame() {
           </div>
         </div>
       </div>
-
-      <TabBar active="ホーム" />
     </Phone>
   );
 }

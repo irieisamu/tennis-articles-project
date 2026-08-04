@@ -178,8 +178,6 @@ function ListGearFrame() {
           ))}
         </div>
       </div>
-
-      <TabBar active="ホーム" />
     </Phone>
   );
 }
