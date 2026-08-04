@@ -288,7 +288,7 @@ function TopFrame() {
             </div>
           ))}
         </div>
-        <div style={{padding:'10px 14px 0'}}>
+        <div style={{padding:'10px 14px 20px'}}>
           <div className="wf-btn wf-btn-out" style={{width:'100%'}}>
             もっと見る <span style={{fontSize:10}}>›</span>
           </div>

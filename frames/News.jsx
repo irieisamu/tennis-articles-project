@@ -114,29 +114,6 @@ function NewsFrame() {
         />
       </div>
 
-      {/* ── 日本人選手の1ポイント速報への導線 ── */}
-      <a href="#" style={{
-        display:'block', margin:'14px 14px 0', padding:'12px', textDecoration:'none', color:'inherit',
-        border:'1px solid var(--wf-ink)', background:'#fff',
-      }}>
-        <div style={{display:'flex', alignItems:'center', gap:6, marginBottom:8}}>
-          <span className="wf-cat wf-cat-tour" style={{display:'inline-flex', alignItems:'center', gap:4}}>
-            <span style={{width:5, height:5, borderRadius:'50%', background:'#fff'}}/>LIVE
-          </span>
-          <span style={{fontSize:11, fontWeight:700, color:'var(--wf-mute)'}}>1ポイント速報</span>
-          <span style={{marginLeft:'auto'}} className="wf-mute">{Ico.chev}</span>
-        </div>
-        <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', fontSize:12.5}}>
-          <span style={{fontWeight:800}}>錦織 圭</span>
-          <span className="wf-num" style={{fontWeight:800}}>40</span>
-        </div>
-        <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', fontSize:12.5, marginTop:4}}>
-          <span style={{fontWeight:600, color:'var(--wf-mute)'}}>Y. シャン</span>
-          <span className="wf-num" style={{fontWeight:600, color:'var(--wf-mute)'}}>30</span>
-        </div>
-        <div className="wf-mute" style={{fontSize:10, marginTop:8}}>第2セット · 4-3 · 錦織のサーブ</div>
-      </a>
-
       {/* ── レコメンド1: 関連ギア (自動) ── */}
       <div style={{margin:'20px 0 0', padding:'14px', background:'var(--wf-court-soft)', borderTop:'2px solid var(--wf-court)'}}>
         <div style={{display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:10}}>
@@ -183,6 +160,34 @@ function NewsFrame() {
             <div className="wf-mute" style={{fontSize:10, marginTop:3}}>コーチ 山田 潤</div>
           </div>
         </div>
+      </div>
+
+      {/* ── 日本人選手の1ポイント速報への導線 ── */}
+      <div style={{padding:'20px 14px 0'}}>
+        <h2 style={{margin:'0 0 8px', fontSize:13, fontWeight:800, borderLeft:'3px solid var(--wf-court)', paddingLeft:8}}>
+          錦織圭の試合速報
+        </h2>
+        <a href="#" style={{
+          display:'block', padding:'12px', textDecoration:'none', color:'inherit',
+          border:'1px solid var(--wf-ink)', background:'#fff',
+        }}>
+          <div style={{display:'flex', alignItems:'center', gap:6, marginBottom:8}}>
+            <span className="wf-cat wf-cat-tour" style={{display:'inline-flex', alignItems:'center', gap:4}}>
+              <span style={{width:5, height:5, borderRadius:'50%', background:'#fff'}}/>LIVE
+            </span>
+            <span style={{fontSize:11, fontWeight:700, color:'var(--wf-mute)'}}>1ポイント速報</span>
+            <span style={{marginLeft:'auto'}} className="wf-mute">{Ico.chev}</span>
+          </div>
+          <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', fontSize:12.5}}>
+            <span style={{fontWeight:800}}>錦織 圭</span>
+            <span className="wf-num" style={{fontWeight:800}}>40</span>
+          </div>
+          <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', fontSize:12.5, marginTop:4}}>
+            <span style={{fontWeight:600, color:'var(--wf-mute)'}}>Y. シャン</span>
+            <span className="wf-num" style={{fontWeight:600, color:'var(--wf-mute)'}}>30</span>
+          </div>
+          <div className="wf-mute" style={{fontSize:10, marginTop:8}}>第2セット · 4-3 · 錦織のサーブ</div>
+        </a>
       </div>
 
       {/* ── 関連ニュース ── */}
