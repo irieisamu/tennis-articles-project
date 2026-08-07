@@ -35,12 +35,11 @@ function ListLessonFrame() {
         <div className="wf-mono" style={{fontSize:9, color:'var(--wf-mute)', letterSpacing:'0.08em', marginBottom:6}}>
           レベルで絞り込む
         </div>
-        <div style={{display:'grid', gridTemplateColumns:'repeat(4, 1fr)', gap:6}}>
+        <div style={{display:'grid', gridTemplateColumns:'repeat(3, 1fr)', gap:6}}>
           {[
             { l: '初心者', c: '#5aa070' },
             { l: '中級', c: '#7a5a1d' },
             { l: '上級', c: '#b32c22' },
-            { l: 'プロ志望', c: 'var(--wf-ink)' },
           ].map(it => (
             <div key={it.l} style={{
               background:'#fff', border:'1px solid var(--wf-line)',

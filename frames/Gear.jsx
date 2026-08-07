@@ -207,6 +207,52 @@ function GearFrame() {
           </div>
         </div>
 
+        {/* ── 外部フォーム埋め込み (Googleフォーム等・安全な埋め込みブロック) ── */}
+        <div style={{margin:'20px 14px 0'}}>
+          <div style={{display:'flex', justifyContent:'space-between', alignItems:'baseline', marginBottom:6}}>
+            <div style={{fontSize:13, fontWeight:800, borderLeft:'3px solid var(--wf-court)', paddingLeft:8}}>この記事の感想を聞かせてください</div>
+            <AnnoTag>外部フォーム埋め込み</AnnoTag>
+          </div>
+          <div style={{fontSize:10.5, color:'var(--wf-mute)', marginBottom:8, lineHeight:1.6}}>
+            Googleフォームなど外部サービスのフォームを、権限を絞ったiframeで安全に埋め込む汎用ブロック。
+          </div>
+
+          <div style={{border:'1px solid var(--wf-ink)'}}>
+            <div style={{
+              background:'var(--wf-ink)', color:'#fff',
+              padding:'6px 10px', display:'flex', justifyContent:'space-between', alignItems:'center',
+            }}>
+              <span style={{fontSize:10, fontWeight:800, letterSpacing:'0.06em'}}>EXTERNAL FORM (IFRAME)</span>
+              <div style={{display:'flex', gap:4}}>
+                <span style={{fontSize:8, fontWeight:800, border:'1px solid #fff', padding:'1px 5px', letterSpacing:'0.04em'}}>HTTPS限定</span>
+                <span style={{fontSize:8, fontWeight:800, border:'1px solid #fff', padding:'1px 5px', letterSpacing:'0.04em'}}>SANDBOX</span>
+              </div>
+            </div>
+
+            {/* iframe埋め込み想定エリア */}
+            <div style={{position:'relative', border:'1px dashed var(--wf-line)', borderTop:0, borderBottom:0, background:'var(--wf-bg-2)', padding:'28px 16px', textAlign:'center'}}>
+              <div style={{fontSize:11, color:'var(--wf-mute)', lineHeight:1.8}}>
+                Googleフォーム等がここに表示されます<br/>
+                <span style={{fontSize:9.5}}>sandbox="allow-forms allow-scripts"（allow-same-origin は付与しない）</span>
+              </div>
+              <div style={{position:'absolute', top:6, right:6}}>
+                <AnnoTag>埋め込みURLはCMS側の許可リストで管理</AnnoTag>
+              </div>
+            </div>
+
+            <div style={{padding:'8px 10px', borderTop:'1px solid var(--wf-line-2)', display:'flex', justifyContent:'space-between', alignItems:'center', background:'#fff'}}>
+              <span style={{fontSize:10, color:'var(--wf-mute)'}}>表示されない場合</span>
+              <span style={{fontSize:10.5, fontWeight:700, color:'var(--wf-court)', display:'inline-flex', alignItems:'center', gap:3}}>
+                外部サイトで開く{Ico.chev}
+              </span>
+            </div>
+          </div>
+
+          <div style={{marginTop:6}}>
+            <AnnoTag>CSP: frame-src を許可ドメインのみに限定 / referrer送信を制限</AnnoTag>
+          </div>
+        </div>
+
         <div style={{height: 76}} /> {/* CTA分の余白 */}
       </Phone>
 
