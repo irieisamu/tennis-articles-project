@@ -1,0 +1,29 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# エディタ / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ログ / 一時
+*.log
+tmp/
+.cache/
+
+# Node（使う場合の保険）
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# 注意:
+# logo-sp.png と design-sample/ は TOP が実際に参照する素材なので無視しない。

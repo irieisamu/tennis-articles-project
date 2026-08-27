@@ -167,7 +167,17 @@ function TabBar({ active = 'ホーム' }) {
 }
 
 // ─── 画像プレースホルダ ─────────────────────────────────────
-function ImgPh({ w, h, label, dark = false, style = {} }) {
+// src を渡すと実画像(<img>・object-fit:cover)、無ければ従来のハッチ。
+function ImgPh({ w, h, label, dark = false, style = {}, src }) {
+  if (src) {
+    return (
+      <img
+        src={src}
+        alt={label || ''}
+        style={{ width: w, height: h, objectFit: 'cover', display: 'block', background: 'var(--wf-bg-2)', ...style }}
+      />
+    );
+  }
   return (
     <div
       className={'wf-img' + (dark ? ' wf-img-dark' : '')}
