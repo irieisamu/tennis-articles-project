@@ -31,6 +31,7 @@
 <script type="text/babel" src="frames/TourNews.jsx?v=1"></script>
 <script type="text/babel" src="frames/PlayerList.jsx?v=2"></script>
 <script type="text/babel" src="frames/PlayerSearch.jsx?v=3"></script>
+<script type="text/babel" src="frames/PlayerDetail.jsx?v=2"></script>
 <script type="text/babel" src="frames/Ranking.jsx?v=6"></script>
 <script type="text/babel" src="frames/TVSchedule.jsx?v=3"></script>
 <script type="text/babel" src="frames/EntryList.jsx?v=4"></script>
@@ -230,6 +231,19 @@ const listTourFrames = [
       '入力中はサジェストで即座に候補提示。日本人・上位を優先し、日本語読み(にし→西岡/錦織)でも引ける。',
       '候補に記事数バッジを付け、"記事が強み"のサイトらしく情報量の多い選手が分かるようにした。',
       '単一ヒットは選手ページへ直行、0件は「該当なし＋ランキングから探す」。',
+    ],
+  },
+  {
+    id: 'player-detail', label: "03f'' · ツアー / 選手詳細",
+    Component: PlayerDetailFrame,
+    caption: {
+      title: 'ツアー / 選手詳細',
+      desc: '選手一覧・検索・ランキングから遷移。現行tennis365 選手詳細のデータをそのまま反映：ヒーロー(写真・名前・画像/ニュース導線) → 現在ランキング → 基本情報(国籍・生年月日・利き腕・身長体重・使用ギア・公式サイト等) → 経歴 → グランドスラム大会結果 → その他の大会結果 → この選手のニュース。',
+    },
+    rationale: [
+      'まずは現行ページのデータをそのまま移行するのが目的なので、基本情報・経歴・成績を素直に表形式/箇条書きで再現。',
+      '追加要素は「この選手のニュース」(選手タグで自動集約)のみ＝サイトの強み＝記事への接続。',
+      'h1に選手名を入れSEOの受け皿に。',
     ],
   },
   {
