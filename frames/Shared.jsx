@@ -229,6 +229,19 @@ function Phone({ children, width = 375, height }) {
   );
 }
 
+// ─── ページ上部へ戻る (長い一覧ページの最下部に置く) ─────────
+function BackToTop() {
+  return (
+    <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '14px 14px 20px', borderTop: '1px solid var(--wf-line-2)' }}>
+      <button style={{
+        fontSize: 11.5, fontWeight: 700, color: 'var(--wf-court)',
+        background: '#fff', border: '1px solid var(--wf-court)',
+        borderRadius: 16, padding: '6px 14px', cursor: 'pointer',
+      }}>ページ上部へ ▲</button>
+    </div>
+  );
+}
+
 Object.assign(window, {
-  Ico, Logo, AppBar, GNav, Crumb, TabBar, ImgPh, Anno, AnnoTag, FrameCaption, Phone, TournamentTable,
+  Ico, Logo, AppBar, GNav, Crumb, TabBar, ImgPh, Anno, AnnoTag, FrameCaption, Phone, TournamentTable, BackToTop,
 });

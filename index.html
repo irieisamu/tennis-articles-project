@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
 <title>テニスメディア 情報設計 · Wireframes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -20,19 +20,28 @@
 <div id="root"></div>
 
 <!-- ?v= はブラウザキャッシュ回避用。編集して見た目が変わらない時はこの数字を上げてください -->
-<script type="text/babel" src="design_canvas.jsx?v=14"></script>
-<script type="text/babel" src="frames/Shared.jsx?v=14"></script>
-<script type="text/babel" src="frames/Top.jsx?v=14"></script>
-<script type="text/babel" src="frames/ListNews.jsx?v=14"></script>
-<script type="text/babel" src="frames/ListTour.jsx?v=14"></script>
-<script type="text/babel" src="frames/ListGear.jsx?v=14"></script>
-<script type="text/babel" src="frames/ListLesson.jsx?v=14"></script>
-<script type="text/babel" src="frames/News.jsx?v=14"></script>
-<script type="text/babel" src="frames/Tour.jsx?v=14"></script>
-<script type="text/babel" src="frames/Gear.jsx?v=14"></script>
-<script type="text/babel" src="frames/Lesson.jsx?v=14"></script>
-<script type="text/babel" src="frames/LP.jsx?v=14"></script>
-<script type="text/babel" src="frames/CMS.jsx?v=14"></script>
+<script type="text/babel" src="design_canvas.jsx?v=21"></script>
+<script type="text/babel" src="frames/Shared.jsx?v=22"></script>
+<script type="text/babel" src="frames/Top.jsx?v=21"></script>
+<script type="text/babel" src="frames/ListNews.jsx?v=21"></script>
+<script type="text/babel" src="frames/ListTour.jsx?v=26"></script>
+<script type="text/babel" src="frames/TourCategory.jsx?v=3"></script>
+<script type="text/babel" src="frames/TourSchedule.jsx?v=6"></script>
+<script type="text/babel" src="frames/PointLive.jsx?v=4"></script>
+<script type="text/babel" src="frames/TourNews.jsx?v=1"></script>
+<script type="text/babel" src="frames/PlayerList.jsx?v=2"></script>
+<script type="text/babel" src="frames/PlayerSearch.jsx?v=3"></script>
+<script type="text/babel" src="frames/Ranking.jsx?v=6"></script>
+<script type="text/babel" src="frames/TVSchedule.jsx?v=3"></script>
+<script type="text/babel" src="frames/EntryList.jsx?v=4"></script>
+<script type="text/babel" src="frames/TourEvent.jsx?v=26"></script>
+<script type="text/babel" src="frames/ListGear.jsx?v=21"></script>
+<script type="text/babel" src="frames/ListLesson.jsx?v=21"></script>
+<script type="text/babel" src="frames/News.jsx?v=21"></script>
+<script type="text/babel" src="frames/Tour.jsx?v=21"></script>
+<script type="text/babel" src="frames/Gear.jsx?v=21"></script>
+<script type="text/babel" src="frames/Lesson.jsx?v=21"></script>
+<script type="text/babel" src="frames/LP.jsx?v=21"></script>
 
 <script type="text/babel" data-presets="react">
 // ─── 表紙用のイントロ ───
@@ -51,7 +60,7 @@ function Intro() {
       </h1>
       <div style={{marginTop:6, fontSize:14, color:'#5a5040', maxWidth:700, lineHeight:1.7}}>
         tennis365 + ALBA を参考に、より現代的なトンマナで再設計。<br/>
-        TOP / 一覧4種類 / 記事詳細4種類 / CMS の計 10画面 の情報設計を、
+        TOP / 一覧 / ツアー / 記事詳細 の情報設計を、
         スマホ 375px のワイヤーフレームで検証しています。
       </div>
       <div style={{marginTop:14, display:'flex', gap:16, flexWrap:'wrap', fontSize:11, color:'#5a5040'}}>
@@ -84,14 +93,6 @@ const listFrames = [
     },
   },
   {
-    id: 'list-tour', label: '03 · 一覧 / ツアー',
-    Component: ListTourFrame,
-    caption: {
-      title: '一覧 / ツアー',
-      desc: '種目別タブ(グランドスラム/ATP/チャレンジャー/WTA/125/国別・団体戦/ITF男子/ITF女子/学生/ジュニア/その他) + 開催中の大会(開催期間・大会の種類・大会名) + 新着ツアーニュース。',
-    },
-  },
-  {
     id: 'list-gear', label: '04 · 一覧 / テニス用品',
     Component: ListGearFrame,
     caption: {
@@ -106,6 +107,159 @@ const listFrames = [
       title: '一覧 / レッスン',
       desc: 'ショット別タブ(新着/サーブ/フォアハンド/バックハンド/ボレー/スマッシュ/フットワーク) + レベル別クイックナビ + 今週のおすすめ + ショット別6セクション + 新着Shorts(YouTube) + コーチ紹介(写真・経歴・直近3レッスン+もっと見るを縦積み)。STEP数バッジで内容濃度を可視化。',
     },
+  },
+];
+// 「03 · 一覧 / ツアー」は縦方向に独立させ、記事一覧セクションの次・記事詳細の前に置く。
+const listTourFrames = [
+  {
+    id: 'list-tour', label: '03 · 一覧 / ツアー',
+    Component: ListTourFrame,
+    caption: {
+      title: '一覧 / ツアー',
+      desc: 'カテゴリ(横スクロールのナビ) + 開催中・今後の大会(直近3件) + 今後の大会日程を見るボタン + 新着ツアーニュース。以降は選手情報・世界ランキング・レースランキング。最下部に「ページ上部へ」ボタン。',
+    },
+    rationale: [
+      'カテゴリ(全ツアー/ATP/WTA…)はタブではなくボタンのナビにした。ATP等を選ぶとh1が変わる"別ページ遷移"で、その場で絞り込むタブとは挙動が違うため。アクティブ＝今いるカテゴリ。',
+      'このサイトの強みは記事。大会モジュールはコンパクトに留め、早く新着ニュース(記事)へ到達させる。',
+      '大会は「開催中＋今後の直近3件」に統一。テニスはオフシーズン(12月頃)や絞り込み時に"開催中ゼロ"があり得るため、その場合も"次の大会"で埋まり、空の見出しを出さない。状態は開催中/開催予定バッジで判別。',
+      '一覧が縦に長いので、最下部に「ページ上部へ ▲」を設置して戻りやすくした。',
+    ],
+  },
+  {
+    id: 'tour-atp', label: '03a · 一覧 / ATP(カテゴリ)',
+    Component: ATPTourFrame,
+    caption: {
+      title: '一覧 / ATP(カテゴリ)',
+      desc: 'カテゴリのATPを押した先。h1=ATPツアー / パンくずTOP›ツアー›ATP / カテゴリnav active=ATP。開催中・今後の大会(ATP・直近3件)+今後の大会日程を見る → ニュース(hero+10本)+もっと読む → 注目の日本人選手 → 世界ランキング → 最後にATP概要。',
+    },
+    rationale: [
+      '全ツアーindexと同じテンプレをATPに絞った版(全ツアー＝"all"の特別ケース)。1コンポーネントで各カテゴリを出し分けられる。',
+      '大会モジュールは全ツアーindexと同じ「開催中＋今後の直近3件」。ATPで絞ると"開催中ゼロ"になりやすい(このモックはちょうど全米オープン=グランドスラム週でATPツアー大会が無い)。その場合も"次の大会(開催予定)"で埋まり、空の見出しを出さない。',
+      'ページ全体がATPなので、見出しは「ニュース/世界ランキング」等とし、頭に"ATP"を付け直さない(冗長を排除)。スコープはh1・パンくず・カテゴリnavが担保。',
+      'ランキングは男子のみ。ATP＝男子ツアー(WTA＝女子)なので女子は出さない。レースランキングは今回は省いた。',
+      '記事優先で、開催中の大会→ニュース(hero+10本)を上位に。SEO用のATP概要は最下部に置き、記事到達を妨げない。',
+      '注目の日本人選手は世界ランキングの上に配置。日本のユーザーが最初に気にする情報を優先。',
+    ],
+  },
+  {
+    id: 'tour-event', label: '03b · ツアー / 大会ページ',
+    Component: TourEventFrame,
+    caption: {
+      title: 'ツアー / 大会ページ',
+      desc: '大会ヘッダー(期間→大会名→開催国・会場・サーフェス・賞金総額) + 種目セレクタ(男子S/男子D/女子S/女子D) + 大会結果(日程ページャ→日付・ラウンド・状態→コート→対戦カード→1ポイント速報リンク)。+ ニュース(1本目ヒーロー+以降サムネ列/計5本+一覧リンク)。+ 大会概要(本文 + 歴代優勝者は別ページ行リンク)。+ TV放送・配信(媒体グループ→局→日時行 + 放送予定一覧リンク) + 出場選手(シード/ランク/選手名の表 + 一覧・ランキング導線) + 関連リンク(ランキング / 年間日程)。',
+    },
+  },
+  {
+    id: 'entry-list', label: "03b' · ツアー / 出場選手一覧",
+    Component: EntryListFrame,
+    caption: {
+      title: 'ツアー / 出場選手一覧',
+      desc: '大会ページの「出場選手をすべて見る（96名）」の遷移先。種目セレクタ(男子S/男子D/女子S/女子D) + 更新日 + シード/ランク/選手の表(JPN強調、Q=予選勝ち上がり/WC=ワイルドカード) + ページネーション。参考: Yahoo!スポーツ 大会別出場選手。',
+    },
+    rationale: [
+      '大会ページ内の出場選手は上位のみ要約、全96名はこのページに集約(役割分担)。種目セレクタで男女S/Dを切替。',
+      '並びはシード順→ランク→選手の定番。JPN選手は行を強調し、日本のユーザーが自国選手を見つけやすく。',
+      'Q(予選)・WC(ワイルドカード)をバッジで示し、本戦入りの経緯が分かるようにした。',
+    ],
+  },
+  {
+    id: 'point-live', label: '03c · ツアー / 1ポイント速報',
+    Component: PointLiveFrame,
+    caption: {
+      title: 'ツアー / 1ポイント速報(ライブ)',
+      desc: '大会ページの試合カードから遷移。タブ無しの縦スクロール：スコアボード(LIVE/自動更新/PTS+各セット/サーブ●) → 試合経過(セット選択+ゲーム別グリッド○◎★+現ゲームの1ポイント経過) → 応援コメント(常時) → 関連記事。',
+    },
+    rationale: [
+      'タブは使わず縦スクロールに統一。競合(スポナビ)はタブだが、tennis365は全部積んで見せる方が迷いにくい。セット選択は"グリッドの局所セレクタ"でありページタブではない。',
+      'スコアボードは競合のPTS＋各セットのゲーム数を1行に凝縮する方式を採用。現状tennis365の大写真＋0-0は場所を食い現在ポイントも分かりにくいため置換。サーブ側に●、進行中セットを強調。',
+      '「1ポイント速報」の核は、試合経過グリッドの現在ゲームを展開して見せるポイント経過。ブレークポイントはクレー色で強調。※この1ポイントごとの実況は入力の運用負荷が高く、初期リリースで入れるかは要検討（UIは用意しておく）。',
+      'スタッツ・過去戦績(H2H)は当初検討したが、リアルタイムのスタッツ入力やH2Hの維持が運用上重いため今回は入れない。応援コメント(コミュニティ)＝tennis365の強みに絞る。',
+      '末尾で関連記事(試合後記事/選手/大会ページ)へ接続し、サイトの強み"記事"へ送客する。',
+    ],
+  },
+  {
+    id: 'tour-schedule', label: '03d · ツアー / 大会日程',
+    Component: TourScheduleFrame,
+    caption: {
+      title: 'ツアー / 大会日程',
+      desc: '上部＝探すツール：開催中の大会 → 年月セレクタ(初期＝現在の月) → ツアー選択 → 大会一覧(グレード・期間・会場・出場人数・状態、終了大会は優勝者)。下部＝年間・大会について(開いたまま)：導入+年間スタッツタイル(4GS/55ATP/50WTA) → グレード・コート早見表 → 大会シーズンについて(4カード)。参考: tennis365 2026年間スケジュール。',
+    },
+    rationale: [
+      '「今後の大会日程を見る」の遷移先。開催中の大会を最上部に固定し、その下で"年月×ツアー"の2軸から目的の大会を探せるようにした。',
+      '年月セレクタの初期値は現在の月(2026年8月)。多くのユーザーは「今／直近」の日程を見るため、最初のタップ数を減らす。',
+      '大会一覧は情報を詰め込みすぎないコンパクトな行。終了した大会には「優勝：◯◯」を1行だけ足す(参考ページの優勝者情報)。',
+      '年間スケジュールの導入文・年間スタッツタイル(4/55/50)・グレード早見表・大会シーズンの解説は"リファレンス/SEO/初心者向け"なので、探す動線を邪魔しないよう下部にまとめる。年間集計の数字は下部に置くことで文脈(=年間)も明確になる。',
+      '下部にあり下に重要物が無いので折り畳まず開いたまま表示。',
+    ],
+  },
+  {
+    id: 'tour-news', label: '03e · ツアー / ニュース一覧',
+    Component: TourNewsFrame,
+    caption: {
+      title: 'ツアー / ニュース一覧',
+      desc: '「新着ツアーニュース > もっと読む」の遷移先。ツアー別の選択(大会日程と同じ横スクロール・全ツアー/ATP/WTA…) + 記事一覧(1本目hero + 以降サムネ行/計20本) + ページネーション。',
+    },
+    rationale: [
+      'ツアー切替は大会日程と同じ横スクロールのピルで統一(サイト内で操作を揃える)。全ツアーが既定、絞るとそのツアーの記事だけに。',
+      '1本目だけhero(大画像)、2本目以降はサムネ+見出しの一覧＝tennis365の情報密度を踏襲。カテゴリ(ATP/WTA/日本/コラム)を小さく添えて絞り込みと相性を良くした。',
+      '無限スクロールではなくページネーション(20本/ページ)。サーバー実装がシンプルで、戻ってきても位置が保てるため。',
+    ],
+  },
+  {
+    id: 'player-list', label: '03f · ツアー / 選手一覧',
+    Component: PlayerListFrame,
+    caption: {
+      title: 'ツアー / 選手一覧',
+      desc: '「選手情報 > もっと見る」の遷移先。探す導線(選手名検索) → 日本人選手(ピックアップ) → 注目選手(世界トップ・ATP/WTA) → 全選手はランキングから。',
+    },
+    rationale: [
+      'ランキングと重複させない。SEOで「選手名」を引くとランキングが出る＝ランキングが"全選手の網羅インデックス"として既に強い。だから選手一覧はキュレーション(探す・知る)に振る。',
+      '自社の「全部載せ(基準不明)」でも競合の「ピックアップのみ」でもないハイブリッド。掲載基準＝①全日本人選手 ②世界トップN(例:各50) ③記事がある選手、で線引きを明確化。',
+      'JPNが強み＆最も検索されるので日本人選手を最上部。注目選手はYahoo的にトップだけキュレーション。',
+      '網羅は「ランキングで全選手を見る」に委譲。全選手に作り込みページは持たず、ランキング掲載選手はテンプレで自動生成(プロフィール＋記事の自動集約)する想定。',
+    ],
+  },
+  {
+    id: 'player-search', label: "03f' · ツアー / 選手検索",
+    Component: PlayerSearchFrame,
+    caption: {
+      title: '選手検索（サジェスト）',
+      desc: '選手一覧の「選手名で検索」に入力した瞬間の状態。フォーカス中の検索フィールド(かな/漢字/アルファベット) → サジェスト候補(JPN・上位優先、記事数バッジ、タップで選手ページ直行、「〜を含む選手をすべて見る」)。',
+    },
+    rationale: [
+      '入力中はサジェストで即座に候補提示。日本人・上位を優先し、日本語読み(にし→西岡/錦織)でも引ける。',
+      '候補に記事数バッジを付け、"記事が強み"のサイトらしく情報量の多い選手が分かるようにした。',
+      '単一ヒットは選手ページへ直行、0件は「該当なし＋ランキングから探す」。',
+    ],
+  },
+  {
+    id: 'ranking', label: '03g · ツアー / ランキング',
+    Component: RankingFrame,
+    caption: {
+      title: 'ツアー / ランキング',
+      desc: '「世界ランキング/レースランキング もっと見る」「全選手を探す」の遷移先。h1は「ランキング」(汎用の受け皿)、現在の表の具体名(ATP世界ランキング等)はh2で表示。ツアー(ATP/WTA)×種目(シングルス/ダブルス)×種別(世界/レース)を切替 → 更新日 → 日本人選手ピン → 順位表(1ページ50人。順位・前回比▲▼・選手・国・ポイント) → ページネーション。参考: tennis365 / Yahoo!スポーツ。',
+    },
+    rationale: [
+      'h1は「ランキング」(汎用)。具体名h1にすると「テニス ランキング」等の汎用クエリの受け皿ページが無くなるため、汎用h1をハブ=受け皿にし、現在の表の具体名(ATP世界ランキング)はh2で示す。',
+      '1ページ13人ではページングが煩雑なので1ページ50人に。上位50が一気にスクロールで見られ、次点はページ送り(全500人)。',
+      'ATP/WTA・シングルス/ダブルス・世界/レースの切替を上部にまとめ、1画面で目的の表に到達。並びは順位・前回比・選手・ポイントの定番構成(Yahoo/自社に準拠)。',
+      'JPNが強みなので「日本人選手」を順位表の上にピン表示。トップ層に日本人がいなくても、何位にいるかへすぐ飛べる(自社の探しにくさを解消)。',
+      '前回比は▲(上昇・緑)/▼(下降・クレー)/–(変わらず)/NEWで一目で分かるように。上位3位は色を変えて視認性を上げる。',
+      'ランキングは"全選手の網羅インデックス"。選手一覧(ピックアップ)から「全選手を探す」でここへ来る導線＝役割分担。',
+    ],
+  },
+  {
+    id: 'tv-schedule', label: '03h · ツアー / TV放送予定',
+    Component: TVScheduleFrame,
+    caption: {
+      title: 'ツアー / TV放送・配信予定',
+      desc: '大会ページの「TV放送予定一覧」ボタンの遷移先。放送局フィルタ(全て/WOWOW/DAZN/NHK BS/U-NEXT) → 日付ごとの放送・配信リスト(時間・大会/ラウンド・局・生中継/録画バッジ) → 注記。参考: ALBA ツアーTV情報。',
+    },
+    rationale: [
+      '全大会横断の"いつ・どこで観られるか"を、日付順のTVガイド形式で一覧化。日付バンド＋時間・大会・局・生中継バッジで一目で分かる。',
+      'フィルタは放送局(WOWOW/DAZN等)。ユーザーは「自分が契約している局」で絞りたいことが多いため。',
+      '大会ページ内のTV放送は要約、全件はこのページに集約(役割分担)。時間変更の注記も添える。',
+    ],
   },
 ];
 const detailFrames = [
@@ -150,18 +304,6 @@ const detailFrames = [
     },
   },
 ];
-// CMSはPC(デスクトップ)幅の画面なので、スマホ375pxのカード列とは分けて単独で表示する。
-const cmsFrames = [
-  {
-    id: 'cms', label: '10 · CMS / 記事作成画面 (PC表示)',
-    Component: CMSFrame, width: 1200,
-    caption: {
-      title: 'CMS · 記事作成',
-      desc: 'ブロックエディタ / スプシ貼付→スペック表 / 比較表 / 特集紐付け / 固定CTA / Googleフォーム / カスタムCSS / タイアップフラグ。左: 本文ブロック編集、右: 基本情報(追従サイドバー)。',
-    },
-  },
-];
-
 // 通常のページスクロールだけで最後まで見られるよう、キャンバス(パン/ズーム)は
 // 使わない。各セクション内は横並び(横スクロールで比較)、セクション同士は縦に並ぶ。
 function Row({ frames }) {
@@ -174,16 +316,33 @@ function Row({ frames }) {
         const w = f.width || 375;
         return (
           <div key={f.id} style={{ flex: '0 0 auto', width: w, maxWidth: '100%' }}>
-            <div style={{ fontSize: 15, fontWeight: 600, color: '#2a251f', marginBottom: 4 }}>{f.label}</div>
-            <div style={{ fontSize: 13, color: 'rgba(60,50,40,0.65)', lineHeight: 1.6, marginBottom: 14, maxWidth: 640 }}>
-              {f.caption.desc}
-            </div>
+            <div style={{ fontSize: 15, fontWeight: 600, color: '#2a251f', marginBottom: 8 }}>{f.label}</div>
             <div style={{
               width: w, maxWidth: '100%', borderRadius: 2, overflow: 'hidden',
               boxShadow: '0 1px 3px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.06)',
             }}>
               <f.Component />
             </div>
+            {/* 説明はUIの下に置く */}
+            <div style={{ fontSize: 13, color: 'rgba(60,50,40,0.65)', lineHeight: 1.6, marginTop: 12, maxWidth: 640 }}>
+              {f.caption.desc}
+            </div>
+            {/* なぜこのUIになったのか（オレンジの説明ボックス。rationale がある時だけ表示） */}
+            {f.rationale && (
+              <div style={{
+                marginTop: 10, maxWidth: 640,
+                fontFamily: 'JetBrains Mono, monospace', fontSize: 11.5, lineHeight: 1.65,
+                color: '#9a3412', background: '#f9ebe2', border: '1px solid #e7b79a',
+                borderLeft: '3px solid #c4623a', borderRadius: '0 3px 3px 0', padding: '10px 12px',
+              }}>
+                <div style={{ fontWeight: 700, marginBottom: 5, letterSpacing: '0.04em', color: '#c4623a' }}>WHY ／ なぜこのUIか</div>
+                {f.rationale.map((r, i) => (
+                  <div key={i} style={{ display: 'flex', gap: 6, marginTop: i ? 4 : 0 }}>
+                    <span style={{ flexShrink: 0 }}>・</span><span>{r}</span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         );
       })}
@@ -201,15 +360,113 @@ function Section({ title, subtitle, frames }) {
   );
 }
 
-function App() {
+// ─── ピンチズーム ───
+// Macのトラックパッドのピンチは ctrlKey 付きの wheel、Safariは gesture* として
+// 飛んでくる。プレビュー環境によってはブラウザ標準のズームが効かないので、
+// ここで拾って中身全体を CSS zoom で拡大縮小する。
+const ZOOM_MIN = 0.25;
+const ZOOM_MAX = 3;
+
+function useZoom() {
+  const [zoom, setZoom] = React.useState(1);
+  const zRef = React.useRef(1);
+  const applyRef = React.useRef(() => {});
+
+  React.useEffect(() => {
+    // ズーム前後で、カーソル(ピンチ中心)の下にある内容が動かないようスクロールを補正する。
+    const apply = (next, cx, cy) => {
+      const prev = zRef.current;
+      const z = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, next));
+      if (z === prev) return;
+      const ratio = z / prev;
+      const se = document.scrollingElement || document.documentElement;
+      const nx = (se.scrollLeft + cx) * ratio - cx;
+      const ny = (se.scrollTop + cy) * ratio - cy;
+      zRef.current = z;
+      setZoom(z);
+      requestAnimationFrame(() => { se.scrollLeft = nx; se.scrollTop = ny; });
+    };
+    applyRef.current = apply;
+
+    const onWheel = (e) => {
+      if (!e.ctrlKey && !e.metaKey) return; // 通常のスクロールはそのまま
+      e.preventDefault();
+      apply(zRef.current * Math.exp(-e.deltaY * 0.01), e.clientX, e.clientY);
+    };
+
+    // Safari: gesture* が e.scale を直接くれる (ctrl+wheel より滑らか)
+    let gBase = 1, gx = 0, gy = 0;
+    const onGestureStart = (e) => {
+      e.preventDefault();
+      gBase = zRef.current; gx = e.clientX; gy = e.clientY;
+    };
+    const onGestureChange = (e) => { e.preventDefault(); apply(gBase * e.scale, gx, gy); };
+    const onGestureEnd = (e) => { e.preventDefault(); };
+
+    const onKey = (e) => {
+      if (!e.metaKey && !e.ctrlKey) return;
+      const cx = window.innerWidth / 2, cy = window.innerHeight / 2;
+      if (e.key === '+' || e.key === '=' || e.key === ';') { e.preventDefault(); apply(zRef.current * 1.1, cx, cy); }
+      else if (e.key === '-') { e.preventDefault(); apply(zRef.current / 1.1, cx, cy); }
+      else if (e.key === '0') { e.preventDefault(); apply(1, cx, cy); }
+    };
+
+    window.addEventListener('wheel', onWheel, { passive: false });
+    window.addEventListener('gesturestart', onGestureStart, { passive: false });
+    window.addEventListener('gesturechange', onGestureChange, { passive: false });
+    window.addEventListener('gestureend', onGestureEnd, { passive: false });
+    window.addEventListener('keydown', onKey);
+    return () => {
+      window.removeEventListener('wheel', onWheel);
+      window.removeEventListener('gesturestart', onGestureStart);
+      window.removeEventListener('gesturechange', onGestureChange);
+      window.removeEventListener('gestureend', onGestureEnd);
+      window.removeEventListener('keydown', onKey);
+    };
+  }, []);
+
+  const step = (mul) => applyRef.current(mul === 0 ? 1 : zRef.current * mul, window.innerWidth / 2, window.innerHeight / 2);
+  return [zoom, step];
+}
+
+function ZoomHUD({ zoom, step }) {
+  const btn = {
+    width: 28, height: 28, display: 'flex', alignItems: 'center', justifyContent: 'center',
+    border: 0, background: 'transparent', color: '#2a251f', fontSize: 16, cursor: 'pointer',
+    borderRadius: 6, lineHeight: 1,
+  };
   return (
-    <div style={{ padding: '0 40px 100px' }}>
+    <div style={{
+      position: 'fixed', right: 16, bottom: 16, zIndex: 9999,
+      display: 'flex', alignItems: 'center', gap: 2, padding: 4,
+      background: 'rgba(255,255,255,0.92)', border: '1px solid #d9d5cc', borderRadius: 10,
+      boxShadow: '0 2px 10px rgba(0,0,0,.12)', backdropFilter: 'blur(6px)',
+      fontFamily: '-apple-system, system-ui, sans-serif',
+    }}>
+      <button style={btn} onClick={() => step(1 / 1.2)} title="縮小 (⌘−)">−</button>
+      <button
+        style={{ ...btn, width: 52, fontSize: 12, fontWeight: 600, fontVariantNumeric: 'tabular-nums' }}
+        onClick={() => step(0)} title="100%に戻す (⌘0)"
+      >{Math.round(zoom * 100)}%</button>
+      <button style={btn} onClick={() => step(1.2)} title="拡大 (⌘+)">＋</button>
+    </div>
+  );
+}
+
+function App() {
+  const [zoom, step] = useZoom();
+  return (
+    <React.Fragment>
+    {/* ZoomHUDは zoom の外に置く。中に入れるとHUD自体も一緒に拡大されてしまう。 */}
+    <ZoomHUD zoom={zoom} step={step} />
+    <div style={{ padding: '0 40px 100px', zoom }}>
       <Intro />
       <Section title="TOP" subtitle="エントリーポイント" frames={topFrames} />
-      <Section title="記事一覧" subtitle="ニュース / ツアー / テニス用品 / レッスン" frames={listFrames} />
+      <Section title="記事一覧" subtitle="ニュース / テニス用品 / レッスン" frames={listFrames} />
+      <Section title="記事一覧 / ツアー" subtitle="ツアー (単独表示)" frames={listTourFrames} />
       <Section title="記事詳細" subtitle="4カテゴリ (スマホ)" frames={detailFrames} />
-      <Section title="CMS" subtitle="記事作成画面 (PC表示)" frames={cmsFrames} />
     </div>
+    </React.Fragment>
   );
 }
 

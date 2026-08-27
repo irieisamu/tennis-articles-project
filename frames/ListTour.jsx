@@ -1,10 +1,11 @@
-// ListTour.jsx — 記事一覧：ツアー (種目別タブ + 開催中の大会 + 新着ツアーニュース)
+// ListTour.jsx — 記事一覧：ツアー (カテゴリ・ナビ + 開催中の大会 + 新着ツアーニュース)
 
 function ListTourFrame() {
   return (
     <Phone>
       <AppBar variant="top" />
       <GNav active="ツアー" />
+      <Crumb items={['TOP', 'ツアー']} />
 
       {/* ページヘッダ */}
       <div style={{padding:'14px 14px 10px', background:'#fff', borderBottom:'1px solid var(--wf-line)'}}>
@@ -17,46 +18,72 @@ function ListTourFrame() {
         </div>
       </div>
 
-      {/* カテゴリタブ (横スクロール) */}
-      <div className="wf-gnav" style={{padding:'0 6px'}}>
-        {['全ツアー', 'グランドスラム', 'ATP', 'チャレンジャー', 'WTA', '125', '国別・団体戦', 'ITF男子', 'ITF女子', '学生', 'ジュニア', 'その他', '選手情報', '世界ランキング', 'レースランキング'].map((c, i) => (
-          <div key={c} className={'wf-gnav-item' + (i === 0 ? ' on' : '')}>{c}</div>
-        ))}
+      {/* カテゴリ (横スクロールのナビ。選ぶと各カテゴリindexへ遷移し h1 が変わる) */}
+      <div style={{background:'#fff', borderBottom:'1px solid var(--wf-line)', padding:'12px 0 10px'}}>
+        <div className="tour-cats" style={{display:'flex', gap:6, overflowX:'auto', padding:'0 12px'}}>
+          {['全ツアー', 'グランドスラム', 'ATP', 'チャレンジャー', 'WTA', '125', '国別・団体戦', 'ITF男子', 'ITF女子', '学生', 'ジュニア', 'その他'].map((c, i) => {
+            const on = i === 0;
+            return (
+              <div key={c} style={{
+                flex:'0 0 auto', fontSize:11.5, fontWeight:700, whiteSpace:'nowrap',
+                padding:'6px 11px', borderRadius:6,
+                border:'1px solid ' + (on ? 'var(--wf-court)' : 'var(--wf-line)'),
+                background: on ? 'var(--wf-court)' : '#fff',
+                color: on ? '#fff' : 'var(--wf-ink)',
+              }}>{c}</div>
+            );
+          })}
+        </div>
       </div>
 
-      {/* ── 開催中の大会 ── */}
+      {/* ── 開催中・今後の大会 (直近3件。開催中が無い時も"次の大会"で埋まる) ── */}
       <div style={{padding:'14px 14px 0'}}>
-        <div style={{
-          fontSize:10, fontWeight:800, color:'var(--wf-clay)',
-          letterSpacing:'0.08em', marginBottom:6,
-        }}>◆ 開催中の大会</div>
-        <div style={{border:'1px solid var(--wf-line)', background:'#fff'}}>
-          {[
-            { type: 'ATP1000', name: 'シンシナティ・オープン', period: '07.24 – 08.02', jpn: '西岡良仁・錦織圭' },
-            { type: 'WTA1000', name: 'シンシナティ・オープン', period: '07.24 – 08.02', jpn: '日比野菜緒' },
-          ].map((t, i, arr) => (
-            <div key={i} style={{
-              display:'flex', alignItems:'center', gap:10,
-              padding:'10px 12px',
-              borderBottom: i < arr.length - 1 ? '1px solid var(--wf-line)' : 0,
-            }}>
-              <span className="wf-cat wf-cat-tour" style={{
-                display:'inline-flex', alignItems:'center', gap:4, flexShrink:0,
-              }}>
-                <span style={{width:5, height:5, borderRadius:'50%', background:'#fff', animation:'wfPulse 1.8s infinite'}} />
-                {t.type}
-              </span>
-              <div style={{flex:1, minWidth:0}}>
-                <div style={{fontSize:12.5, fontWeight:700, lineHeight:1.4}}>{t.name}</div>
-                <div className="wf-num" style={{fontSize:10, color:'var(--wf-mute)', marginTop:2}}>{t.period}</div>
+        <h2 style={{
+          margin:0, fontSize:11, fontWeight:800, letterSpacing:'0.04em',
+          color:'var(--wf-mute)', marginBottom:4,
+          paddingBottom:6, borderBottom:'2px solid var(--wf-ink)',
+        }}>
+          開催中・今後の大会
+        </h2>
+        {[
+          { grade: 'グランドスラム', name: '全米オープン', period: '08.24 – 09.07', jpn: '西岡良仁・大坂なおみ ほか', status: '開催中' },
+          { grade: '国別・団体戦', name: 'デビスカップ 予選ラウンド', period: '09.12 – 09.14', jpn: null, status: '開催予定' },
+          { grade: 'ATP500', name: '木下グループジャパンオープン', period: '09.24 – 09.30', jpn: '錦織圭 ほか', status: '開催予定' },
+        ].map((t, i) => (
+          <div key={i} className="wf-row" style={{alignItems:'flex-start'}}>
+            <ImgPh w={100} h={68} label="thumb" />
+            <div style={{flex:1, fontSize:12, lineHeight:1.45, minWidth:0}}>
+              <div style={{display:'flex', gap:6, alignItems:'center', fontSize:10, color:'var(--wf-mute)', marginBottom:2}}>
+                <span style={{color:'var(--wf-court)', fontWeight:700}}>{t.grade}</span>
+                <span>·</span>
+                <span className="wf-num">{t.period}</span>
+                {t.status === '開催中' ? (
+                  <span style={{
+                    marginLeft:'auto', display:'inline-flex', alignItems:'center', gap:3,
+                    fontSize:9, background:'var(--wf-clay)', color:'#fff',
+                    padding:'0 4px', fontWeight:700, letterSpacing:'0.06em',
+                  }}>
+                    <span style={{width:4, height:4, borderRadius:'50%', background:'#fff', animation:'wfPulse 1.8s infinite'}} />
+                    開催中
+                  </span>
+                ) : (
+                  <span style={{
+                    marginLeft:'auto', fontSize:9, background:'var(--wf-bg-3)', color:'var(--wf-mute)',
+                    border:'1px solid var(--wf-line)', padding:'0 4px', fontWeight:700, letterSpacing:'0.06em',
+                  }}>開催予定</span>
+                )}
+              </div>
+              <div style={{fontWeight:600, lineHeight:1.4}}>{t.name}</div>
+              {t.jpn && (
                 <div style={{fontSize:10, color:'var(--wf-ink-2)', marginTop:3, display:'flex', gap:4, alignItems:'center'}}>
                   <span style={{fontSize:8.5, fontWeight:700, color:'#fff', background:'var(--wf-court)', padding:'1px 4px'}}>JPN</span>
                   <span>{t.jpn}</span>
                 </div>
-              </div>
+              )}
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
+        <button className="wf-btn wf-btn-out" style={{width:'100%', marginTop:12}}>今後の大会日程を見る</button>
       </div>
 
       {/* ── 新着ツアーニュース ── */}
@@ -216,8 +243,12 @@ function ListTourFrame() {
         <button className="wf-btn wf-btn-out" style={{width:'100%', marginTop:8}}>もっと見る</button>
       </div>
 
+      <BackToTop />
+
       <style>{`
         @keyframes wfPulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+        .tour-cats::-webkit-scrollbar { display: none; }
+        .tour-cats { scrollbar-width: none; }
       `}</style>
     </Phone>
   );
