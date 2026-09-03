@@ -22,7 +22,9 @@
 <!-- ?v= はブラウザキャッシュ回避用。編集して見た目が変わらない時はこの数字を上げてください -->
 <script type="text/babel" src="design_canvas.jsx?v=21"></script>
 <script type="text/babel" src="frames/Shared.jsx?v=24"></script>
-<script type="text/babel" src="frames/Top.jsx?v=33"></script>
+<script type="text/babel" src="frames/Top.jsx?v=36"></script>
+<script type="text/babel" src="frames/Feature.jsx?v=6"></script>
+<script type="text/babel" src="frames/FeatureList.jsx?v=4"></script>
 <script type="text/babel" src="frames/ListNews.jsx?v=21"></script>
 <script type="text/babel" src="frames/ListTour.jsx?v=26"></script>
 <script type="text/babel" src="frames/TourCategory.jsx?v=3"></script>
@@ -35,7 +37,7 @@
 <script type="text/babel" src="frames/Ranking.jsx?v=6"></script>
 <script type="text/babel" src="frames/TVSchedule.jsx?v=3"></script>
 <script type="text/babel" src="frames/EntryList.jsx?v=4"></script>
-<script type="text/babel" src="frames/TourEvent.jsx?v=26"></script>
+<script type="text/babel" src="frames/TourEvent.jsx?v=30"></script>
 <script type="text/babel" src="frames/ListGear.jsx?v=21"></script>
 <script type="text/babel" src="frames/ListLesson.jsx?v=21"></script>
 <script type="text/babel" src="frames/News.jsx?v=21"></script>
@@ -82,6 +84,34 @@ const topFrames = [
       title: 'TOP',
       desc: 'メインニュース3本連続(ヒーロー) → ニュース一覧への導線 → 速報ティッカー → ツアー速報カード → ギア特集 → レッスン特集 → サービス導線 → アクセスランキング → 特集一覧。ニュース最優先。',
     },
+  },
+  {
+    id: 'feature-list', label: '01a · TOP / 特集一覧',
+    Component: FeatureListFrame,
+    caption: {
+      title: 'TOP / 特集一覧',
+      desc: 'TOPの「特集 > もっと見る」の遷移先。個別の特集(01b)ではなく、特集そのものが並ぶページ。h1=特集 → 特集の2カラムグリッド(キービジュアル・更新中バッジ・特集名・記事数)を20件 → もっと見る。',
+    },
+    rationale: [
+      '特集は名前と絵で選ぶものなので、テキスト行ではなく画像主体の2カラムグリッドにした(04 · 一覧/テニス用品と同じ並べ方)。1画面に入る数が増え、見比べて選べる。',
+      '更新が続いている特集に「更新中」バッジを出す。終わった特集と、今も記事が増えている特集は価値が違うため。並びは最終更新の新しい順。',
+      'カードに出す情報は特集名と記事数だけに絞った。カテゴリや日付を並べると、キービジュアルと特集名で選ぶという一覧の目的が薄まるため。記事数だけは特集の規模を示すので残す。',
+    ],
+  },
+  {
+    id: 'feature', label: '01b · TOP / 特集ページ',
+    Component: FeatureFrame,
+    caption: {
+      title: 'TOP / 特集ページ',
+      desc: 'TOPの「特集」カード(例: 2026年ラケット新製品)の遷移先。特集ヘッダー(FEATURE + 特集名 + リード + 記事数・最終更新 + キービジュアル) → 記事一覧(新着順のフラットなサムネ行。カテゴリ + 日付) → 他の特集(TOPの特集カードと同じ横スクロールのダークカード + もっと見る)。',
+    },
+    rationale: [
+      '特集ページの主役は特集名。何の特集かがh1で分かれば、あとは記事が並んでいれば用は足りるので、余計なモジュールは足していない。',
+      '記事の行は 02 · 一覧/ニュース と同じサムネ行を流用して見た目を統一。ただし日付見出し(07 / 27 MON)は置かない。ニュース一覧は日付で追うページだが、特集は「テーマで束ねたまとまり」なので日ごとに区切る意味がなく、区切りが入るぶん記事が読みにくくなるため。日付は各行に持たせた。',
+      '特集はカテゴリ横断(ギア/ニュース/レッスン)なので、行ごとにカテゴリを表示して出自が分かるようにした。日付は特集の更新が続いていることを示す。',
+      '記事数が特集の規模を表すのでヘッダーに置き、TOPのカードに出ている「12 記事」と一致させる。全件表示できる規模なのでページネーションは置かず、末尾は他の特集への回遊にした。',
+      '末尾の「他の特集」はTOPの特集カードと同じUI(横スクロールのダークカード + FEATURE + 特集名 + 記事数)に揃えた。同じ「特集を選ぶ」行為なのに見た目が違うと別物に見えるため。右上の「もっと見る」で特集一覧(01a)へ。',
+    ],
   },
 ];
 const listFrames = [

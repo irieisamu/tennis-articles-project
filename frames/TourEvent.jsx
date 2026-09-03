@@ -85,6 +85,25 @@ function TourEventDrawTabs() {
 // 参考UI: [< | 8日目 ▼ | >] の日程ページャ → 日付+ラウンド+状態 → コート名 → 対戦カード。
 // 終了した大会は最終日(=決勝)をデフォルト表示するので、開いた瞬間に結果が見える。
 
+// 1ポイント速報マーク。1ポイントごとに更新する試合は運用コストが高く、
+// 人気カード・日本人選手の試合など一部に限られるので、付いている試合だけ目印を出す。
+const PLIco = (
+  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="3" fill="currentColor" stroke="none" />
+  </svg>
+);
+function PointLiveBadge() {
+  return (
+    <span style={{
+      display:'inline-flex', alignItems:'center', gap:3,
+      fontSize:9, fontWeight:800, letterSpacing:'0.02em',
+      color:'#fff', background:'var(--wf-court)', padding:'1px 5px', borderRadius:2,
+    }}>
+      {PLIco}1ポイント速報
+    </span>
+  );
+}
+
 // セットスコア1マス (タイブレークは肩付き数字)
 function SetScore({ g, tb, win }) {
   return (
@@ -147,22 +166,30 @@ function MatchCard({ m }) {
         display:'flex', alignItems:'center', justifyContent:'space-between',
         padding:'6px 10px', background:'var(--wf-bg-2)', borderBottom:'1px solid var(--wf-line-2)',
       }}>
-        <span className="wf-mono" style={{fontSize:9.5, color:'var(--wf-mute)', letterSpacing:'0.04em'}}>
-          {m.court}
+        <span style={{display:'inline-flex', alignItems:'center', gap:6, minWidth:0}}>
+          <span className="wf-mono" style={{fontSize:9.5, color:'var(--wf-mute)', letterSpacing:'0.04em'}}>
+            {m.court}
+          </span>
+          {m.pl && <PointLiveBadge />}
         </span>
-        <span style={{fontSize:9.5, color:'var(--wf-mute)'}}>
+        <span style={{fontSize:9.5, color:'var(--wf-mute)', flexShrink:0}}>
           試合時間 <span className="wf-num">{m.time}</span>
         </span>
       </div>
       <MatchPlayer p={m.p1} />
       <MatchPlayer p={m.p2} last />
-      {/* 1ポイント速報へ */}
+      {/* 1ポイント速報がある試合は強調、ない試合は試合詳細のみ */}
       <div style={{
         display:'flex', alignItems:'center', justifyContent:'space-between',
         padding:'8px 10px', borderTop:'1px solid var(--wf-line)',
-        fontSize:11, fontWeight:700, color:'var(--wf-court)',
+        fontSize:11, fontWeight:700,
+        color: m.pl ? 'var(--wf-court)' : 'var(--wf-ink-2)',
+        background: m.pl ? 'var(--wf-court-soft)' : 'transparent',
       }}>
-        <span>試合詳細（1ポイント速報）</span>
+        <span style={{display:'inline-flex', alignItems:'center', gap:5}}>
+          {m.pl && <span style={{display:'flex'}}>{PLIco}</span>}
+          {m.pl ? '1ポイント速報を見る' : '試合詳細'}
+        </span>
         <span style={{display:'flex'}}>{Ico.chev}</span>
       </div>
     </div>
@@ -170,9 +197,19 @@ function MatchCard({ m }) {
 }
 
 // ─── トーナメント表（ブラケット） ───
+// 2試合 → 1試合の合流を線で描くため、ボックスの高さとピッチを固定値で持ち、
+// 各ボックスを絶対配置する。線は「上下の試合から水平に出る → 縦線で束ねる →
+// 中央から次ラウンドへ水平に伸びる」の3パーツで構成。
+const BR_ROW_H = 24;                    // 選手1行の高さ
+const BR_BOX_H = BR_ROW_H * 2 + 1 + 2;  // 選手2行 + 区切り線 + 上下ボーダー
+const BR_GAP   = 8;                     // 手前ラウンドのボックス間隔
+const BR_COL_W = 150;                   // 1ラウンド分の幅
+const BR_CONN  = 18;                    // 接続線カラムの幅
+const BR_STUB  = 10;                    // 次ラウンドへ続くことを示す線の長さ
+
 function BR_Player({ p }) {
   return (
-    <div style={{display:'flex', alignItems:'center', gap:5, padding:'4px 6px', fontSize:10.5}}>
+    <div style={{display:'flex', alignItems:'center', gap:5, height:BR_ROW_H, padding:'0 6px', fontSize:10.5}}>
       <span style={{fontFamily:'var(--wf-font-mono)', fontSize:8, fontWeight:700, border:'1px solid var(--wf-line)', background:'var(--wf-bg-2)', color:'var(--wf-mute)', padding:'0 3px', flexShrink:0}}>{p.cc}</span>
       <span style={{flex:1, minWidth:0, fontWeight:p.win?800:500, color:p.win?'var(--wf-ink)':'var(--wf-ink-2)', whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis'}}>{p.name}</span>
       <span style={{width:12, flexShrink:0, color:'var(--wf-court)', display:'flex', justifyContent:'center', visibility:p.win?'visible':'hidden'}}>{Ico.check}</span>
@@ -180,32 +217,67 @@ function BR_Player({ p }) {
     </div>
   );
 }
+
 function BR_Box({ m }) {
   return (
-    <div style={{border:'1px solid var(--wf-line)', borderRadius:4, background:'#fff'}}>
-      <BR_Player p={m.p1} />
-      <div style={{height:1, background:'var(--wf-line-2)'}} />
-      <BR_Player p={m.p2} />
+    <div style={{
+      height:BR_BOX_H, display:'flex', borderRadius:4, background:'#fff', overflow:'hidden',
+      border:'1px solid ' + (m.pl ? 'var(--wf-court)' : 'var(--wf-line)'),
+    }}>
+      <div style={{flex:1, minWidth:0}}>
+        <BR_Player p={m.p1} />
+        <div style={{height:1, background:'var(--wf-line-2)'}} />
+        <BR_Player p={m.p2} />
+      </div>
+      {/* 1ポイント速報あり: 縦書きラベルがそのまま試合詳細へのタブになる。
+          終了した試合は「結果」、試合中は「速報」。 */}
+      {m.pl && (
+        <div style={{
+          flex:'0 0 18px', display:'flex', alignItems:'center', justifyContent:'center',
+          background:'var(--wf-court)', color:'#fff',
+          fontSize:9.5, fontWeight:800, letterSpacing:'0.08em',
+          writingMode:'vertical-rl', textOrientation:'upright',
+        }}>{m.live ? '速報' : '結果'}</div>
+      )}
     </div>
   );
 }
+
+// 上下2試合を束ねて次ラウンドへつなぐ線
+function BR_Connector({ y1, y2, width }) {
+  const half = width / 2;
+  const line = { position:'absolute', background:'var(--wf-line)' };
+  return (
+    <React.Fragment>
+      <div style={{...line, left:0,    top:y1, width:half, height:1}} />
+      <div style={{...line, left:0,    top:y2, width:half, height:1}} />
+      <div style={{...line, left:half, top:y1, width:1, height:y2 - y1}} />
+      <div style={{...line, left:half, top:(y1 + y2) / 2, width:half, height:1}} />
+    </React.Fragment>
+  );
+}
+
 function TourEventBracket() {
   const r3 = [
     { p1:{cc:'USA', name:'M.ダム', s:1}, p2:{cc:'HUN', name:'F.マロジャーン', s:2, win:true} },
     { p1:{cc:'ITA', name:'L.ソネゴ', s:0}, p2:{cc:'AUS', name:'J.ダックワース', s:2, win:true} },
     { p1:{cc:'GBR', name:'A.フェリー', s:2, win:true}, p2:{cc:'NED', name:'M.ロトヘリング', s:0} },
-    { p1:{cc:'USA', name:'A.コバチェビッチ', s:2, win:true}, p2:{cc:'GRE', name:'S.チチパス', s:0} },
+    { p1:{cc:'USA', name:'A.コバチェビッチ', s:2, win:true}, p2:{cc:'GRE', name:'S.チチパス', s:0}, pl:true },
     { p1:{cc:'ARG', name:'J.セルンドロ', s:1, win:true}, p2:{cc:'ARG', name:'S.バエス', s:0} },
     { p1:{cc:'GER', name:'D.アルトマイヤー', s:0}, p2:{cc:'PER', name:'I.ブセ', s:2, win:true} },
-    { p1:{cc:'AUS', name:'R.ヒジカタ', s:0}, p2:{cc:'FRA', name:'B.ボンジ', s:2, win:true} },
+    { p1:{cc:'AUS', name:'R.ヒジカタ', s:0}, p2:{cc:'FRA', name:'B.ボンジ', s:2, win:true}, pl:true },
     { p1:{cc:'BEL', name:'B.バン デ ザン…', s:2, win:true}, p2:{cc:'ITA', name:'L.ダルデリ', s:0} },
   ];
   const qf = [
     { p1:{cc:'HUN', name:'F.マロジャーン'}, p2:{cc:'AUS', name:'J.ダックワース'} },
-    { p1:{cc:'GBR', name:'A.フェリー'}, p2:{cc:'USA', name:'A.コバチェビッチ'} },
+    { p1:{cc:'GBR', name:'A.フェリー'}, p2:{cc:'USA', name:'A.コバチェビッチ'}, pl:true, live:true },
     { p1:{cc:'ARG', name:'J.セルンドロ'}, p2:{cc:'PER', name:'I.ブセ'} },
     { p1:{cc:'FRA', name:'B.ボンジ'}, p2:{cc:'BEL', name:'B.バン デ ザン…'} },
   ];
+  const pitch  = BR_BOX_H + BR_GAP;              // 手前ラウンドの1試合あたりの縦ピッチ
+  const total  = r3.length * pitch - BR_GAP;     // 表全体の高さ
+  const center = k => k * pitch + BR_BOX_H / 2;  // 手前ラウンド k番目の中心Y
+
   return (
     <div>
       {/* ラウンドページャ: < | 3回戦  準々決勝 | > */}
@@ -217,17 +289,56 @@ function TourEventBracket() {
         </div>
         <span style={{display:'flex', color:'var(--wf-ink)', padding:'0 2px', transform:'scaleX(-1)'}}>{Ico.back}</span>
       </div>
+
+      {/* 凡例 */}
+      <div style={{
+        display:'flex', alignItems:'center', gap:5, marginBottom:8,
+        fontSize:10, color:'var(--wf-mute)', lineHeight:1.5,
+      }}>
+        {['結果', '速報'].map(t => (
+          <span key={t} style={{
+            display:'inline-flex', alignItems:'center', justifyContent:'center',
+            width:14, height:28, background:'var(--wf-court)', color:'#fff', borderRadius:2,
+            fontSize:9, fontWeight:800, writingMode:'vertical-rl', textOrientation:'upright',
+            flexShrink:0,
+          }}>{t}</span>
+        ))}
+        <span>= 1ポイント速報あり。終了した試合は「結果」、試合中は「速報」。</span>
+      </div>
+
       {/* ブラケット本体（横スクロール） */}
-      <div className="br-scroll" style={{display:'flex', gap:14, overflowX:'auto', paddingBottom:8, alignItems:'stretch'}}>
-        <div style={{flex:'0 0 150px', display:'flex', flexDirection:'column', gap:8}}>
-          {r3.map((m, i) => <BR_Box key={i} m={m} />)}
-        </div>
-        <div style={{flex:'0 0 150px', display:'flex', flexDirection:'column', justifyContent:'space-around'}}>
-          {qf.map((m, i) => <BR_Box key={i} m={m} />)}
+      <div className="br-scroll" style={{overflowX:'auto', paddingBottom:8}}>
+        <div style={{position:'relative', height:total, width:BR_COL_W * 2 + BR_CONN + BR_STUB}}>
+          {/* 3回戦 */}
+          {r3.map((m, i) => (
+            <div key={i} style={{position:'absolute', left:0, top:i * pitch, width:BR_COL_W}}>
+              <BR_Box m={m} />
+            </div>
+          ))}
+
+          {/* 接続線 */}
+          <div style={{position:'absolute', left:BR_COL_W, top:0, width:BR_CONN, height:total}}>
+            {qf.map((_, i) => (
+              <BR_Connector key={i} y1={center(2 * i)} y2={center(2 * i + 1)} width={BR_CONN} />
+            ))}
+          </div>
+
+          {/* 準々決勝: 上下2試合の中央に合わせる */}
+          {qf.map((m, i) => {
+            const mid = (center(2 * i) + center(2 * i + 1)) / 2;
+            return (
+              <div key={i} style={{position:'absolute', left:BR_COL_W + BR_CONN, top:mid - BR_BOX_H / 2, width:BR_COL_W}}>
+                <BR_Box m={m} />
+                {/* 準決勝へ続くことを示す線 */}
+                <div style={{position:'absolute', left:BR_COL_W, top:BR_BOX_H / 2, width:BR_STUB, height:1, background:'var(--wf-line)'}} />
+              </div>
+            );
+          })}
         </div>
       </div>
+
       <div style={{marginTop:8}}>
-        <Anno>準々決勝以降は左右の &lt; &gt; で移動。勝者はチェック＋太字、右端の数字は取得セット数。</Anno>
+        <Anno>準々決勝以降は左右の &lt; &gt; で移動。勝者はチェック＋太字、右端の数字は取得セット数。1ポイント速報は人気カード・日本人選手の試合など一部のみ実施するので、実施した試合だけ縦書きラベル付きで枠を緑にする。</Anno>
       </div>
     </div>
   );
@@ -237,7 +348,7 @@ function TourEventResults() {
   const [view, setView] = React.useState('schedule');
   const matches = [
     {
-      court: 'CENTER COURT', time: '2:14',
+      court: 'CENTER COURT', time: '2:14', pl: true,
       p1: { name: 'T.フリッツ', seed: 3, cc: 'USA', country: 'アメリカ', win: true,
             sets: [{g:7, tb:7, won:true}, {g:4}, {g:6, won:true}] },
       p2: { name: 'C.アルカラス', seed: 1, cc: 'ESP', country: 'スペイン',

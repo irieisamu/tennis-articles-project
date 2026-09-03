@@ -23,6 +23,14 @@ const IMG = {
   stadium: 'design-sample/assets/stadium-usopen.jpg',
 };
 
+// 1ポイント速報マーク。1ポイントごとに更新される試合につけるので、
+// 全試合ではなく人気カード・日本人選手の試合など一部だけに出る。
+const PLIco = (
+  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="3" fill="currentColor" stroke="none" />
+  </svg>
+);
+
 // セクション見出し（アイブロウ + 太字タイトル + 黒アクセントバー + 全幅ベースライン）
 function SecHead({ title, cat, more = true }) {
   return (
@@ -127,11 +135,13 @@ function TopFrame() {
       {/* ── 3. ツアー速報 (スコアカード群) ── */}
       <div style={{ padding: '18px 0 0' }}>
         <SecHead title="ツアー速報" cat="Tour · Live & Results" />
-        <div style={{ padding: '0 0 0 14px', display: 'flex', gap: 8, overflowX: 'auto' }}>
+        {/* alignItems:flex-start = 1ポイント速報の行がないカードが引き伸ばされて
+            最終行が高く見えるのを防ぐ。カードは各自の内容ぶんの高さになる。 */}
+        <div style={{ padding: '0 0 0 14px', display: 'flex', gap: 8, overflowX: 'auto', alignItems: 'flex-start' }}>
           {[
-            { tour: 'ATP', event: 'CINCINNATI · SF', p1: 'C. アルカラス', s1: '7 6', p2: 'A. ズベレフ', s2: '6 4', w: 1, status: 'FINAL' },
+            { tour: 'ATP', event: 'CINCINNATI · SF', p1: 'C. アルカラス', s1: '7 6', p2: 'A. ズベレフ', s2: '6 4', w: 1, status: 'FINAL', pl: true },
             { tour: 'ATP', event: 'CINCINNATI · SF', p1: 'T. フリッツ', s1: '6 3 6', p2: 'J. シナー', s2: '4 6 3', w: 1, status: 'FINAL' },
-            { tour: 'WTA', event: 'MONTREAL · R3', p1: '大坂 なおみ', s1: '6 4', p2: 'E. ルバキナ', s2: '3 2', w: 1, status: 'LIVE' },
+            { tour: 'WTA', event: 'MONTREAL · R3', p1: '大坂 なおみ', s1: '6 4', p2: 'E. ルバキナ', s2: '3 2', w: 1, status: 'LIVE', pl: true },
           ].map((m, i) => (
             <div key={i} style={{
               flex: '0 0 220px', border: '1px solid var(--wf-ink)', background: '#fff',
@@ -162,6 +172,19 @@ function TopFrame() {
                   <span className="wf-num" style={{ fontSize: 12.5, fontWeight: win ? 800 : 500, color: win ? 'var(--wf-ink)' : 'var(--wf-mute)' }}>{s}</span>
                 </div>
               ))}
+              {/* 1ポイント速報がある試合だけ導線を出す */}
+              {m.pl && (
+                <div style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  padding: '6px 8px', borderTop: '1px solid var(--wf-line-2)',
+                  background: '#fff', color: TB.brand2, fontSize: 10.5, fontWeight: 800,
+                }}>
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                    {PLIco}1ポイント速報
+                  </span>
+                  <span style={{ fontSize: 9 }}>›</span>
+                </div>
+              )}
             </div>
           ))}
         </div>
