@@ -85,6 +85,32 @@ const topFrames = [
       desc: 'メインニュース3本連続(ヒーロー) → ニュース一覧への導線 → 速報ティッカー → ツアー速報カード → ギア特集 → レッスン特集 → サービス導線 → アクセスランキング → 特集一覧。ニュース最優先。',
     },
   },
+];
+const listFrames = [
+  {
+    id: 'list-news', label: '02 · 一覧 / ニュース',
+    Component: ListNewsFrame,
+    caption: {
+      title: '一覧 / ニュース',
+      desc: '日付見出し + ピックアップ枠 + 新着リスト。tennis365風の情報密度を維持。',
+    },
+  },
+  {
+    id: 'list-gear', label: '04 · 一覧 / テニス用品',
+    Component: ListGearFrame,
+    caption: {
+      title: '一覧 / テニス用品',
+      desc: '雑誌的な余白 + サブカテゴリタブ + 特集バナー + 2カラムグリッド + アクセスランキング + ブランドから探す。',
+    },
+  },
+  {
+    id: 'list-lesson', label: '05 · 一覧 / レッスン',
+    Component: ListLessonFrame,
+    caption: {
+      title: '一覧 / レッスン',
+      desc: 'ショット別タブ(新着/サーブ/フォアハンド/バックハンド/ボレー/スマッシュ/フットワーク) + レベル別クイックナビ + 今週のおすすめ + ショット別6セクション + 新着Shorts(YouTube) + コーチ紹介(写真・経歴・直近3レッスン+もっと見るを縦積み)。STEP数バッジで内容濃度を可視化。',
+    },
+  },
   {
     id: 'feature-list', label: '01a · TOP / 特集一覧',
     Component: FeatureListFrame,
@@ -112,32 +138,6 @@ const topFrames = [
       '記事数が特集の規模を表すのでヘッダーに置き、TOPのカードに出ている「12 記事」と一致させる。全件表示できる規模なのでページネーションは置かず、末尾は他の特集への回遊にした。',
       '末尾の「他の特集」はTOPの特集カードと同じUI(横スクロールのダークカード + FEATURE + 特集名 + 記事数)に揃えた。同じ「特集を選ぶ」行為なのに見た目が違うと別物に見えるため。右上の「もっと見る」で特集一覧(01a)へ。',
     ],
-  },
-];
-const listFrames = [
-  {
-    id: 'list-news', label: '02 · 一覧 / ニュース',
-    Component: ListNewsFrame,
-    caption: {
-      title: '一覧 / ニュース',
-      desc: '日付見出し + ピックアップ枠 + 新着リスト。tennis365風の情報密度を維持。',
-    },
-  },
-  {
-    id: 'list-gear', label: '04 · 一覧 / テニス用品',
-    Component: ListGearFrame,
-    caption: {
-      title: '一覧 / テニス用品',
-      desc: '雑誌的な余白 + サブカテゴリタブ + 特集バナー + 2カラムグリッド + アクセスランキング + ブランドから探す。',
-    },
-  },
-  {
-    id: 'list-lesson', label: '05 · 一覧 / レッスン',
-    Component: ListLessonFrame,
-    caption: {
-      title: '一覧 / レッスン',
-      desc: 'ショット別タブ(新着/サーブ/フォアハンド/バックハンド/ボレー/スマッシュ/フットワーク) + レベル別クイックナビ + 今週のおすすめ + ショット別6セクション + 新着Shorts(YouTube) + コーチ紹介(写真・経歴・直近3レッスン+もっと見るを縦積み)。STEP数バッジで内容濃度を可視化。',
-    },
   },
 ];
 // 「03 · 一覧 / ツアー」は縦方向に独立させ、記事一覧セクションの次・記事詳細の前に置く。
